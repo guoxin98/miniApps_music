@@ -8,13 +8,6 @@ function formatCount(count){
     return counter 
 }
 function addZero (number){
-  // if(number<10&&number>0){
-  //   return "0"+number
-  // }else if (number==0){
-  //   return "00"
-  // }else return number
-
-  // 另一种方法
   number = number+""
   return ("00"+number).slice(number.length)
 }

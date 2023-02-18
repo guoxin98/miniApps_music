@@ -1,0 +1,25 @@
+/* components/video-item-v1/index.wxss */
+.item .album{
+  position: relative;
+}
+.item .album .image{
+  width: 100%;
+  height: 200rpx;
+  border-radius: 4px;
+}
+.item .album .info{
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 15rpx;
+  left: 5rpx;
+  right: 5rpx;
+  font-size: 24rpx;
+  color:#fff
+}
+.item .content{
+  position: relative;
+  margin-top: 10rpx;
+  font-size: 28rpx;
+  -webkit-line-clamp: 2;
+}

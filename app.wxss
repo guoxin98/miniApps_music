@@ -17,3 +17,9 @@
   line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+.no-more{
+  width: 100%;
+  padding: 30rpx 0 30rpx 0;
+  text-align: center;
+  font-size:32rpx;
+}
