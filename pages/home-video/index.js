@@ -2,14 +2,15 @@
 
 //  api请求
 import {getTopMV} from '../../api/api-video'
-import hyRequest from '../../utils/request'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    topMVs:[]
+    topMVs:[],
+    offset:0,
+    limit:10
   },
 
   /**
@@ -17,8 +18,8 @@ Page({
    */
   onLoad(options) {
     const obj = {
-      offset:0,
-      limit :10
+      offset:this.data.offset,
+      limit:this.data.limit,
     }
     getTopMV(obj).then(res=>{
       this.setData({
