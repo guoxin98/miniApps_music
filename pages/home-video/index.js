@@ -1,32 +1,42 @@
 // pages/home-video/index.js
+
+//  api请求
+import {getTopMV} from '../../api/api-video'
+import hyRequest from '../../utils/request'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    topMVs:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    const obj = {
+      offset:0,
+      limit :10
+    }
+    getTopMV(obj).then(res=>{
+      this.setData({
+        topMVs:res.data.data
+      })
+    })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    
   },
 
   /**
