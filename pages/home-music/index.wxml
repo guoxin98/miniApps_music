@@ -2,10 +2,8 @@
 <!-- 搜索框 -->
 <van-search placeholder="搜索你喜欢的歌曲" disabled bindtap="handleSearchClick" background="#fafafa" shape="round" />
 <!-- 轮播图 -->
-<swiper indicator-dots autoplay circular="{{true}}">
-  <block wx:for="{{bannerList}}" wx:key="encodeId">
-    <swiper-item class="swiper-item">
-      <image class="image" src="{{item.imageUrl}}"></image>
-    </swiper-item>
-  </block>
+<swiper indicator-dots autoplay circular="{{true}}" class="swiper" style="height:{{height}}px;">
+  <swiper-item class="swiper-item" wx:for="{{bannerList}}" wx:key="bannerId">
+    <image class="swiper-image" src="{{item.pic}}" bindload="swiperImageLoaded"></image>
+  </swiper-item>
 </swiper>
