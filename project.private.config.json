@@ -10,8 +10,8 @@
       "list": [
         {
           "name": "",
-          "pathName": "pages/detail-video/index",
-          "query": "id=14607725",
+          "pathName": "pages/home-music/index",
+          "query": "",
           "launchMode": "default",
           "scene": null
         }

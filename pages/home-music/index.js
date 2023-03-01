@@ -1,20 +1,36 @@
 // pages/home-music/index.js
+import {getBanner} from '../../api/api-music'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    bannerList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    // 获取音乐首页数据
+    this.getHomeMusicData()
   },
-
+  async getHomeMusicData(){
+    const res = await getBanner()
+    this.setData({
+      bannerList:res.banners
+    })
+  },
+  handleSearchClick(){
+    wx.navigateTo({
+      url: '/pages/detail-search/index',
+      success: (result)=>{
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
