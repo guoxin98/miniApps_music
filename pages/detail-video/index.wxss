@@ -1,1 +1,41 @@
 /* pages/detail-video/index.wxss */
+page{
+  padding-top: 150px;
+  overflow-y: unset;
+}
+.video-container{
+  width:100%; 
+  position: fixed;
+  height: 150px;
+  top:0;
+}
+.recommend-txt{
+  text-align: left;
+  margin:20rpx 20rpx 0 20rpx;
+  font-size: 30rpx;
+}
+.list-data{
+  display: flex;
+  padding: 20rpx;
+}
+.list-data .image{
+  width: 240rpx;
+  height: 150rpx;
+}
+.list-data .info{
+  flex:1;
+  padding: 15rpx;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.video-title{
+  color:#000;
+  font-size: 28rpx;
+  flex:1;
+}
+.creator-name{
+  line-height: 0;
+  color:#727277;
+  font-size: 25rpx;
+}

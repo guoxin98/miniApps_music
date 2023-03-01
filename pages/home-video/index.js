@@ -29,9 +29,9 @@ Page({
       this.setData({
         topMVs:this.data.topMVs.length?
         this.data.offset===0?
-        res.data.data:this.data.topMVs.concat(res.data.data)
-        :res.data.data,
-        hasMore:res.data.hasMore
+        res.data:this.data.topMVs.concat(res.data)
+        :res.data,
+        hasMore:res.hasMore
       })
       wx.hideNavigationBarLoading()
       if(this.data.offset===0){
@@ -45,7 +45,6 @@ Page({
    wx.navigateTo({
       url: `/pages/detail-video/index?id=${id}`,
       success: (result)=>{
-        
       },
       fail: ()=>{},
       complete: ()=>{}

@@ -1,2 +1,12 @@
-<!--pages/detail-video/index.wxml-->
-<text>pages/detail-video/index.wxml</text>
+<!-- pages/detail-video/index.wxml -->
+<video src="{{MVUrlInfo.url}}" class="video-container"></video>
+<view class="recommend-txt">推荐视频</view>
+<block wx:for="{{relatedVideoList}}" wx:key="vid">
+  <view class="list-data" bindtap="handleVideoItemClick" data-item="{{item}}">
+    <image class="image" src="{{item.coverUrl}}"></image>
+    <view class="info">
+      <view class="video-title ellipsis">{{item.title}}</view>
+      <view class="creator-name">{{item.creator[0].userName}}</view>
+    </view>
+  </view>
+</block>
