@@ -1,5 +1,5 @@
 <!-- pages/detail-video/index.wxml -->
-<video src="{{MVUrlInfo.url}}" class="video-container"></video>
+<video src="{{MVUrlInfo.url}}" class="video-container" referrer-policy="origin"></video>
 <view class="recommend-txt">推荐视频</view>
 <block wx:for="{{relatedVideoList}}" wx:key="vid">
   <view class="list-data" bindtap="handleVideoItemClick" data-item="{{item}}">
