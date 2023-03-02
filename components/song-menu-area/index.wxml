@@ -1,4 +1,5 @@
 <!-- components/song-menu-area/index.wxml -->
+<wxs src="../../utils/format.wxs" module="format"></wxs>
 <view class="song-menu">
   <!-- 使用area-header组件 -->
   <area-header title="热门歌单"></area-header>
@@ -6,6 +7,9 @@
     <block class="scroll-item">
       <view class="view-item" wx:for="{{list}}" wx:key="id">
         <image src="{{item.picUrl}}" class="image"></image>
+        <view class="play-count">
+          <view class="count-text">{{format.formatCount(item.playCount)}}</view>
+        </view>
         <text class="item-name ellipsis">{{item.name}}</text>
       </view>
     </block>

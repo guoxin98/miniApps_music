@@ -35,7 +35,7 @@ Page({
       })
     })
     // 热门歌单
-    getHotPlayList().then(res=>{
+    getHotPlayList(30).then(res=>{
       this.setData({
         recommendList:res.tags
       })

@@ -17,11 +17,14 @@
 }
 .view-item{
   padding-left: 20rpx;
+  position: relative;
 }
 .view-item:last-of-type{
   padding-right: 20rpx;
 }
-
+.view-item:last-of-type .play-count{
+  right: 35rpx;
+}
 .view-item{
   display: flex;
   flex-direction: column;
@@ -29,4 +32,18 @@
 .item-name{
   font-size: 24rpx;
   color: #777;
+}
+.play-count{
+  color:#fff;
+  position: absolute;
+  text-align: right;
+  z-index: 999;
+  font-size: 16rpx;
+  right: 15rpx;
+  top: 166rpx;
+}
+.play-count .count-text{
+  background-color: #777;
+  padding: 6rpx;
+  border-radius: 8rpx;
 }
