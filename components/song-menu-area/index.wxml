@@ -1,0 +1,13 @@
+<!-- components/song-menu-area/index.wxml -->
+<view class="song-menu">
+  <!-- 使用area-header组件 -->
+  <area-header title="热门歌单"></area-header>
+  <view class="list-container">
+    <block class="scroll-item">
+      <view class="view-item" wx:for="{{list}}" wx:key="id">
+        <image src="{{item.picUrl}}" class="image"></image>
+        <text class="item-name ellipsis">{{item.name}}</text>
+      </view>
+    </block>
+  </view>
+</view>

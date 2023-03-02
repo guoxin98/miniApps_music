@@ -1,14 +1,16 @@
 /* pages/home-music/index.wxss */
+page{
+  padding: 0 20rpx;
+}
 .van-search__content{
   background-color: #fff !important;
 }
 /* 轮播图 */
-.swiper-item{
-  width: 100%;
-}
 .swiper-image{
   width: 100%;
 }
 .swiper{
-  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+  transform: translateY(0);
 }

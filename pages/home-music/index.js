@@ -1,15 +1,17 @@
 // pages/home-music/index.js
-import {getBanner} from '../../api/api-music'
+import { getBanner,getRecomendSongs,getHotPlayList} from '../../api/api-music'
 import queryReact from '../../utils/query-react'
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    bannerList:[],
-    height:0,
-    timeId:null
+    bannerList:[], //轮播图数组
+    height:0, //轮播图高度
+    timeId:null, //节流
+    recommendList:[], //推荐歌曲
+    topList:[], 
+    hotPlayList:[], //热门歌单
   },
 
   /**
@@ -19,10 +21,24 @@ Page({
     // 获取音乐首页数据
     this.getHomeMusicData()
   },
-  async getHomeMusicData(){
-    const res = await getBanner(1)
-    this.setData({
-      bannerList:res.banners
+  getHomeMusicData(){
+    // 轮播图
+    getBanner(1).then((res)=>{
+      this.setData({
+        bannerList:res.banners
+      }) 
+    })
+    //推荐歌曲
+    getRecomendSongs(10).then(res=>{
+      this.setData({
+        hotPlayList:res.result
+      })
+    })
+    // 热门歌单
+    getHotPlayList().then(res=>{
+      this.setData({
+        recommendList:res.tags
+      })
     })
   },
   // 图片加载完成
@@ -45,7 +61,6 @@ Page({
     }
     setTimeout(()=>{
       queryReact('.swiper-image').then((res)=>{
-        console.log('success',this.data.timeId)
         this.setData({
           height:res[0].height,
           timeId:null
