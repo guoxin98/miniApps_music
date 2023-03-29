@@ -1,2 +1,24 @@
 <!--pages/login/index.wxml-->
-<text>pages/login/index.wxml</text>
+<van-toast id="van-toast" />
+<view class="login-container">
+  <view class="logo-container">
+    <image class="logo" src="../../assets/images/tabbar/music_active.png"></image>
+  </view>
+  <form class="login-form" bindsubmit="onSubmit">
+    <view class="input-group">
+      <input class="input" type="text" placeholder="请输入手机号" name="phone" bindinput="onPhoneInput" />
+    </view>
+    <view class="input-group">
+      <input class="input" type="number" placeholder="请输入验证码" name="code" bindinput="onCodeInput" />
+      <button class="code-button" type="button" disabled="{{!canSendCode}}" bindtap="onSendCode">{{codeButtonText}}</button>
+    </view>
+    <view class="button-group">
+      <button class="button" type="primary" formType="submit">登录</button>
+    </view>
+  </form>
+  <!-- <view class="tips">
+    <text class="tip-text">使用手机号和验证码登录</text>
+    <navigator class="tip-link" url="/pages/register/register">新用户注册</navigator>
+    <navigator class="tip-link" url="/pages/forgot/forgot">忘记密码</navigator>
+  </view> -->
+</view>
