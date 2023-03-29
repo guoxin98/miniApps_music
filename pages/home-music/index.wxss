@@ -8,9 +8,59 @@ page{
 /* 轮播图 */
 .swiper-image{
   width: 100%;
+  object-fit: cover;
 }
 .swiper{
   border-radius: 4px;
   overflow: hidden;
   transform: translateY(0);
+}
+/* 巅峰榜 */
+.rangking{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.ranking-box{
+  display: flex;
+  width: 100%;
+}
+.ranking-box+.ranking-box{
+  margin-top: 30rpx;
+}
+.song-box{
+  flex:1;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  top:-20rpx;
+}
+.song-box text{
+  font-size:30rpx;
+  color:#6c6666;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp:2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.image-box{
+  width: 250rpx;
+  height: 250rpx;
+}
+.image-box image{
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+.image-box text{
+  position: relative;
+  top:-62rpx;
+  left:8rpx;
+  font-size: 26rpx;
+  color:#fff
 }

@@ -1,0 +1,12 @@
+<!-- pages/list-detail/index.wxml -->
+<view class="page">
+  <view class="container">
+    <image src="{{listInfo.coverImgUrl}}" class="image"></image>
+    <view class="intro">
+       <view class="title ellipsis">{{listInfo.name}}</view>
+       <view class="description ellipsis">{{listInfo.description}}</view>
+    </view>
+  </view>
+  <van-button icon="share-o" size="normal"  bindtap="onShareTap" color="rgba(255, 255, 255, 0.05)" block round>分享给微信好友</van-button>
+  <view class="list-song"></view>
+</view>

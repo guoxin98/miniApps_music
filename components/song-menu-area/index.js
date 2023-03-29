@@ -22,7 +22,15 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    goTopListDetail(e){
+      wx.navigateTo({
+        url: `/pages/list-detail/index?id=${e.currentTarget.dataset.item.id}`,
+        success: (result)=>{
+        },
+        fail: ()=>{},
+        complete: ()=>{}
+      });
+    },
   },
   options:{
     styleIsolation: 'apply-shared',

@@ -16,3 +16,20 @@
 </view> -->
 <!-- 热门歌单 -->
 <song-menu-area list="{{hotPlayList}}"></song-menu-area>
+<!-- 巅峰榜 -->
+<area-header title="巅峰榜" showDefault="{{false}}"></area-header>
+<view class="ranking">
+  <block wx:for="{{topList}}" wx:key="id">
+    <view class="ranking-box" data-item="{{item}}" bindtap="goTopListDetail">
+      <view class="image-box">
+        <image src="{{item.coverImgUrl}}"></image>
+        <text>{{item.updateFrequency}}</text>
+      </view>
+      <view class="song-box">
+        <text wx:for="{{3}}" wx:key="*this" wx:for-item='song'>
+          {{song+1}}.{{item.tracks[song].first}}{{item.tracks[song].second}}
+        </text>
+      </view>
+    </view>
+  </block>
+</view>

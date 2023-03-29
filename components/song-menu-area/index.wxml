@@ -6,11 +6,13 @@
   <view class="list-container">
     <block class="scroll-item">
       <view class="view-item" wx:for="{{list}}" wx:key="id">
-        <image src="{{item.picUrl}}" class="image"></image>
-        <view class="play-count">
-          <view class="count-text">{{format.formatCount(item.playCount)}}</view>
+        <view bindtap="goTopListDetail" data-item="{{item}}">
+          <image src="{{item.picUrl}}" class="image"></image>
+          <view class="play-count">
+            <view class="count-text">{{format.formatCount(item.playCount)}}</view>
+          </view>
+          <text class="item-name ellipsis">{{item.name}}</text>
         </view>
-        <text class="item-name ellipsis">{{item.name}}</text>
       </view>
     </block>
   </view>

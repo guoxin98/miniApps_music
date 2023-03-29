@@ -8,6 +8,10 @@ Component({
     rightText:{
       type:String,
       value:'更多'
+    },
+    showDefault:{
+      type:Boolean,
+      value:true
     }
   },
   methods: {},
