@@ -8,7 +8,8 @@ Page({
     listInfo:{},
     tracks:[],
     musicStatus:true,
-    songInfo:{}
+    songInfo:{},
+    isShow:false
   },
 
   /**
@@ -26,7 +27,8 @@ Page({
       picUrl:'http://p3.music.126.net/cGTKkFl5qcXIDYPo7PrmDA==/109951168431655039.jpg'
     }
     this.setData({
-      songInfo:event.currentTarget.dataset.id
+      songInfo:event.currentTarget.dataset.id,
+      isShow:true
     })
   },
   getPlayListDetail(id){

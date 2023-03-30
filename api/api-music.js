@@ -24,3 +24,7 @@ export const getToplist = ()=>{
 export const getPlayListDetail = (id)=>{
   return hyRequest.get('playlist/detail',{id})
 }
+// 获取音乐播放地址
+export const getSongUrl = (id)=>{
+  return hyRequest.get('song/url',{id})
+}

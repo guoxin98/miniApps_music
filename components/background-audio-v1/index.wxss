@@ -13,9 +13,12 @@
   width: 7vh;
   height: 7vh;
   border-radius: 50%;
-  animation: rotate 5s linear infinite;
   position: relative;
   top:-10rpx;
+  animation-play-state: paused;  
+}
+.rotate-start{
+  animation: rotate 5s linear infinite;
 }
 @keyframes rotate {
   from {

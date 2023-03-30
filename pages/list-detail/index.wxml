@@ -32,7 +32,5 @@
       <van-icon name="play-circle-o" size="40px" color="gray" data-id="{{item}}"  bindtap="playSong" />
     </view>
   </view>
-<background-audio class="bg-audio" src="http://music.163.com/song/media/outer/url?id=123456.mp3"></background-audio>
-
-<background-audio-v1 musicStatus="{{musicStatus}}" songInfo="{{songInfo}}"></background-audio-v1>
+  <background-audio-v1 wx:if="{{isShow}}"  songInfo="{{songInfo}}"></background-audio-v1>
 </view>
