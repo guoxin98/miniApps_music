@@ -5,6 +5,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: unset;
 }
 
 .page-before {
@@ -49,7 +50,7 @@
 }
 .list-song{
   height: 100vh;
-  background-color: #fafafa;
+  background-color: #fff;
   margin-top: 30rpx;
   border-radius: 30rpx 30rpx 0 0;
 }

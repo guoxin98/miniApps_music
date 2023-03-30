@@ -6,7 +6,9 @@ Page({
    */
   data: {
     listInfo:{},
-    tracks:[]
+    tracks:[],
+    musicStatus:true,
+    songInfo:{}
   },
 
   /**
@@ -14,6 +16,18 @@ Page({
    */
   onLoad(options) {
     this.getPlayListDetail(options.id)
+  },
+  /**
+   * @description: 点击按钮播放事件
+   * @return {void}
+   */
+  playSong(event){
+    const songInfo={
+      picUrl:'http://p3.music.126.net/cGTKkFl5qcXIDYPo7PrmDA==/109951168431655039.jpg'
+    }
+    this.setData({
+      songInfo:event.currentTarget.dataset.id
+    })
   },
   getPlayListDetail(id){
     getPlayListDetail(id).then((res)=>{

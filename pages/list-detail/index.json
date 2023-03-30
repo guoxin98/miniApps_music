@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "van-button": "@vant/weapp/button/index",
-    "van-icon": "@vant/weapp/icon/index"
+    "van-icon": "@vant/weapp/icon/index",
+    "background-audio-v1":"/components/background-audio-v1"
   },
   "navigationBarTitleText":"歌单"
 }

@@ -1,0 +1,43 @@
+/* components/background-audio-v1/index.wxss */
+.music-bar{
+  position: fixed;
+  background-color: #fafafa;
+  bottom: 0;
+  width: 100vw;
+  height: 8vh;
+  padding: 0 15rpx;
+  display: flex;
+  align-items: center;
+}
+.music-cover{
+  width: 7vh;
+  height: 7vh;
+  border-radius: 50%;
+  animation: rotate 5s linear infinite;
+  position: relative;
+  top:-10rpx;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.music-info{
+  font-size: 24rpx;
+  flex:1;
+  padding-left: 40rpx;
+}
+.music-control{
+  width: 20vw;
+  display: flex;
+  justify-content: space-between;
+  padding:0 40rpx;
+}
+.player-icon{
+  width: 5vh;
+  height: 5vh;
+  cursor: pointer;
+}
