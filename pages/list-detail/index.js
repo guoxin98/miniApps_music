@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    listInfo:{}
+    listInfo:{},
+    tracks:[]
   },
 
   /**
@@ -17,7 +18,8 @@ Page({
   getPlayListDetail(id){
     getPlayListDetail(id).then((res)=>{
       this.setData({
-        listInfo:res.playlist
+        listInfo:res.playlist,
+        tracks:res.playlist.tracks
       })
     })
   },

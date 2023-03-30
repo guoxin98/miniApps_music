@@ -18,14 +18,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    if (wx.getStorageSync('token')) {
-      // 已登录，进行鉴权操作
-    } else {
-      // 未登录，跳转到登录页面
-      wx.navigateTo({
-        url: '/pages/login/index'
-      })
-    }
     // 获取音乐首页数据
     this.getHomeMusicData()
   },

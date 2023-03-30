@@ -17,7 +17,16 @@ function formatDuration(duration){
   var second = Math.floor(duration)%60
   return addZero(minute)+":"+addZero(second)
 }
+// 对歌曲的演唱者进行格式化输出
+function formatSongAr(ar){
+  var str = ''
+  for(var i=0;i<ar.length;i++){
+    str=str+ar[i].name+'/'
+  }
+  return str.substring(0,str.length-1)
+}
 module.exports = {
   formatCount:formatCount,
-  formatDuration:formatDuration
+  formatDuration:formatDuration,
+  formatSongAr:formatSongAr
 }

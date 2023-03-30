@@ -1,5 +1,7 @@
 <!-- pages/list-detail/index.wxml -->
+<wxs src="../../utils/format.wxs" module="format"></wxs>
 <view class="page">
+  <view class="page-before" style="background-image:url({{listInfo.coverImgUrl}})"></view>
   <view class="container">
     <image src="{{listInfo.coverImgUrl}}" class="image"></image>
     <view class="intro">
@@ -8,5 +10,29 @@
     </view>
   </view>
   <van-button icon="share-o" size="normal"  bindtap="onShareTap" color="rgba(255, 255, 255, 0.05)" block round>分享给微信好友</van-button>
-  <view class="list-song"></view>
+  <view class="list-song">
+    <view wx:for="{{tracks}}" wx:key="id" class="list-item" >
+      <view class="index">
+        {{index+1}}
+      </view>
+      <view class="song-info">
+        <view class="song-name overflow-ellipsis">
+          {{item.name}}
+        </view>
+        <view class="song-descri">
+          <view class="sq">
+            <image class="sq-icon" src="../../assets/images/icons/sq_icon.png" v-if="{{item.sq}}">
+            </image>
+          </view>
+          <text class="descri overflow-ellipsis">
+            {{format.formatSongAr(item.ar)}}-{{item.al.name}}
+          </text>
+        </view>
+      </view>
+      <van-icon name="play-circle-o" size="40px" color="gray" />
+      <!-- <view class="song-status">
+        <image src="../../assets/images/player/play_resume.png"></image>
+      </view> -->
+    </view>
+  </view>
 </view>

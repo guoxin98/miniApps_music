@@ -27,7 +27,7 @@
       </view>
       <view class="song-box">
         <text wx:for="{{3}}" wx:key="*this" wx:for-item='song'>
-          {{song+1}}.{{item.tracks[song].first}}{{item.tracks[song].second}}
+          {{song+1}}.{{item.tracks[song].first}}-{{item.tracks[song].second}}
         </text>
       </view>
     </view>

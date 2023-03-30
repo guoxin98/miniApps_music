@@ -7,8 +7,7 @@
   flex-direction: column;
 }
 
-.page::before {
-  content: "";
+.page-before {
   position: absolute;
   top: 0;
   left: 0;
@@ -16,7 +15,6 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  background-image: url("https://p1.music.126.net/pcYHpMkdC69VVvWiynNklA==/109951166952713766.jpg"); /* 你的虚拟背景图片链接 */
   filter: blur(10px); /* 虚拟背景模糊效果 */
   z-index: -1;
 }
@@ -27,10 +25,14 @@
   height: 330rpx;
 }
 .container .image{
-  width: 250rpx;
-  height: 250rpx;
+  width: 250rpx !important;
+  height: 250rpx !important;
   border-radius: 10rpx;
 }
+/* image{
+  width: 100%;
+  height: 100%;
+} */
 .container .intro {
   flex:1;
   display: flex;
@@ -42,5 +44,68 @@
 .intro .description{
   color:#f4f4f4bd;
   font-size: 28rpx;
+  max-width: 350rpx;
+  word-wrap:break-word;
 }
-
+.list-song{
+  height: 100vh;
+  background-color: #fafafa;
+  margin-top: 30rpx;
+  border-radius: 30rpx 30rpx 0 0;
+}
+.list-song .list-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+.list-item .index{
+  font-size: 24px;
+  color:#444242bd;
+  width: 90rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.list-item .song-info{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.song-name{
+  font-size: 32rpx;
+}
+.song-descri{
+  display: flex;
+  align-items: center;
+  color:#444242bd;
+  max-width: 500rpx;
+}
+/* .song-status{
+  width: 100rpx;
+  height: 100rpx;
+} */
+.sq{
+  height: 50rpx;
+  display: flex;
+  align-items: flex-end;
+}
+.sq-icon{
+  width: 40rpx;
+  height: 20rpx;
+}
+.overflow-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.descri{
+  min-width: 0;
+  font-size: 22rpx;
+  flex:1;
+  margin-left: 10rpx;
+  display: flex;
+  align-items: center;
+}

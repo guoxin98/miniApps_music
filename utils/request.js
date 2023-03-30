@@ -1,5 +1,11 @@
 // 创建一个类封装
 const BASE_URL= "http://localhost:3000/"
+const token = wx.getStorageSync('token')
+if(!token){
+  wx.navigateTo({
+    url: '/pages/login/index'
+  })
+}
 class Request{
   request(url,method,params){
     return new Promise((resolve,reject)=>{
@@ -7,6 +13,9 @@ class Request{
         url:BASE_URL+url,
         method,
         data:params,
+        header:{
+          'Authorization':'Bearer '+token
+        },
         success:function(res){
           resolve(res.data)
         },
