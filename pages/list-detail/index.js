@@ -9,7 +9,7 @@ Page({
     tracks:[],
     musicStatus:true,
     songInfo:{},
-    isShow:false
+    isShow:false,
   },
 
   /**
@@ -18,24 +18,61 @@ Page({
   onLoad(options) {
     this.getPlayListDetail(options.id)
   },
+  // 为了方便控制播放暂停按钮的样式变换
+  // playSong、pauseSong事件都会触发子组件的playMusic、pauseMusic事件，在子组件的事件触发后会改变页面的状态
   /**
-   * @description: 点击按钮播放事件
+   * @description: 点击按钮播放音乐事件
    * @return {void}
    */
   playSong(event){
-    const songInfo={
-      picUrl:'http://p3.music.126.net/cGTKkFl5qcXIDYPo7PrmDA==/109951168431655039.jpg'
+    const { info } = event.currentTarget.dataset
+    if(this.data.songInfo.id===info.id){
+      const backgroundAudio =  this.selectComponent('#bgAudio')
+      backgroundAudio.playMusic()
+    }else{
+      this.setData({
+        isShow:true,
+        songInfo:info
+      })
     }
-    this.setData({
-      songInfo:event.currentTarget.dataset.id,
-      isShow:true
+  },
+  /**
+   * @description: 点击按钮暂停音乐事件
+   * @return {*}
+   */  
+  pauseSong(){
+    const backgroundAudio =  this.selectComponent('#bgAudio')
+    backgroundAudio.pauseMusic()
+  },
+  // 修改tracks的方法
+  changeTrackStatus(playing,info=this.data.songInfo){
+    const newTracks = this.data.tracks.map(tracks=>{
+      if(tracks.id===info.id){
+        tracks.isPlaying=!playing
+      }else{
+        tracks.isPlaying=false
+      }
+      return tracks
     })
+    this.setData({
+      tracks:newTracks
+    })
+  },
+  // 子组件修改音乐播放暂停，父组件页面发生变化
+  changePlayingSong(e){
+    this.changeTrackStatus(e.detail)
   },
   getPlayListDetail(id){
     getPlayListDetail(id).then((res)=>{
+      const tracks = res.playlist.tracks.map(item=>{
+        return {
+          ...item,
+          isPlaying:false
+        }
+      })
       this.setData({
         listInfo:res.playlist,
-        tracks:res.playlist.tracks
+        tracks:tracks
       })
     })
   },

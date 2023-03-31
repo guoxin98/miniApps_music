@@ -28,10 +28,19 @@
     transform: rotate(360deg);
   }
 }
+@keyframes scroll{
+  from{
+    transform: translateX(0);
+  }
+  to{
+    transform: translateX(-50%);
+  }
+}
 .music-info{
   font-size: 24rpx;
   flex:1;
-  padding-left: 40rpx;
+  margin: 0 40rpx;
+  overflow: hidden;
 }
 .music-control{
   width: 20vw;
@@ -43,4 +52,13 @@
   width: 5vh;
   height: 5vh;
   cursor: pointer;
+}
+.music-name{
+  width: fit-content;
+  white-space: nowrap;
+}
+/* 滚动css */
+.scroll{
+  animation: scroll 4s linear 1;
+  animation-delay: 1s;
 }

@@ -2,7 +2,7 @@
  * @Author: guoxin
  * @Date: 2023-03-30 16:30:37
  * @LastEditors: guoxin
- * @LastEditTime: 2023-03-30 21:31:13
+ * @LastEditTime: 2023-03-31 21:07:12
  * @Description: 播放音乐后底部状态栏
  */
 // components/background-audio-v1/index.js
@@ -14,8 +14,14 @@ Component({
   properties: {
     songInfo:{
       type:Object,
-      value:{}
-    },
+      value:{},
+      observer: function(newVal, oldVal) {
+        if(this.data.songUrl){
+          // 当切换音频的时候，会自动开始播放新的歌曲
+          this.getSongUrl()
+        }
+      }
+    }
   },
 
   /**
@@ -25,9 +31,13 @@ Component({
     playing: true,
     songUrl:null,
     musicStatus:true,
-    innerAudioContext:null
+    innerAudioContext:null, //音频上下文
   },
   attached(){
+    const innerAudioContext = wx.createInnerAudioContext()
+    this.setData({
+      innerAudioContext:innerAudioContext
+    })
     this.getSongUrl()
   },
   /**
@@ -39,19 +49,15 @@ Component({
       this.setData({
         songUrl:res.data[0].url
       })
-      // 获取完音乐播放地址后创建音频
-      this.createBackgroundMusic()
+      // 设置音乐播放内容
+      this.setBackgroundMusic()
     },
-    createBackgroundMusic(){
-      // 创建音频上下文
-      const innerAudioContext = wx.createInnerAudioContext()
-      // 设置音频属性
-      innerAudioContext.src = this.data.songUrl
-      innerAudioContext.autoplay=true
-      innerAudioContext.loop = true
-      this.setData({
-        innerAudioContext:innerAudioContext
-      })
+    setBackgroundMusic(){
+      // 设置音乐内容并初始化播放
+      this.data.innerAudioContext.src = this.data.songUrl
+      this.data.innerAudioContext.autoplay=true
+      this.data.innerAudioContext.loop = true
+      this.playMusic()
       // 背景音乐的创建方法
       // const bgMusic = wx.getBackgroundAudioManager()
       // // 设置音频属性
@@ -61,16 +67,18 @@ Component({
     },
     playMusic() {
       this.data.innerAudioContext.play()
-      this.changePlayingState(true)
+      this.changePlayingStatus(true)
     },
     pauseMusic() {
       this.data.innerAudioContext.pause()
-      this.changePlayingState(false)
+      this.changePlayingStatus(false)
     },
-    changePlayingState(isPlaying){
+    changePlayingStatus(isPlaying){
       this.setData({
         playing:isPlaying
       })
+      // 父组件元素变化
+      this.triggerEvent('changeSongStatus',!isPlaying)
     }
   }
 })
