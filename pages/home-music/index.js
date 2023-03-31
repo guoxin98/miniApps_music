@@ -35,11 +35,11 @@ Page({
       })
     })
     // 热门歌单
-    getHotPlayList().then(res=>{
-      this.setData({
-        recommendList:res.tags
-      })
-    })
+    // getHotPlayList().then(res=>{
+    //   this.setData({
+    //     recommendList:res.tags
+    //   })
+    // })
     getToplist().then(res=>{
       this.setData({
         topList:res.list.splice(0,4)
