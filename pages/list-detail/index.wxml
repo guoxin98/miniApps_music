@@ -33,5 +33,5 @@
       <van-icon name="pause-circle-o" size="40px" color="gray" data-info="{{item}}" data-playing="{{item.isPlaying}}"  wx:if="{{item.isPlaying}}"  bindtap="pauseSong" />
     </view>
   </view>
-  <background-audio-v1 bind:changeSongStatus="changePlayingSong" wx:if="{{isShow}}"  id="bgAudio" songInfo="{{songInfo}}"></background-audio-v1>
+  <background-audio-v1 isChangeSong="{{isChangeSong}}" bind:changeSongStatus="changePlayingSong" wx:if="{{isShow}}"  id="bgAudio" ></background-audio-v1>
 </view>

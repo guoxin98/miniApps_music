@@ -1,4 +1,6 @@
 import {getPlayListDetail} from "../../api/api-music"
+import storage from "../../utils/storage"
+const app =  getApp();
 Page({
 
   /**
@@ -8,15 +10,22 @@ Page({
     listInfo:{},
     tracks:[],
     musicStatus:true,
-    songInfo:{},
+    songInfo:null,
     isShow:false,
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    if(app.globalData.playingSongInfo){
+      this.setData({
+        isShow:true,
+        songInfo:app.globalData.playingSongInfo
+      })
+    }
     this.getPlayListDetail(options.id)
+  },
+  onShow(){
   },
   // 为了方便控制播放暂停按钮的样式变换
   // playSong、pauseSong事件都会触发子组件的playMusic、pauseMusic事件，在子组件的事件触发后会改变页面的状态
@@ -26,15 +35,59 @@ Page({
    */
   playSong(event){
     const { info } = event.currentTarget.dataset
-    if(this.data.songInfo.id===info.id){
-      const backgroundAudio =  this.selectComponent('#bgAudio')
-      backgroundAudio.playMusic()
+    this.setData({
+      songInfo:info
+    })
+    // if(app.globalData.playingSongInfo&&this.data.songInfo.id!==app.globalData.playingSongInfo.id){
+      
+    //   app.globalData.playingSongInfo=info
+    //   this.setData({
+    //     isShow:true,
+    //     songInfo:info
+    //   })
+    //   backgroundAudio.getSongUrl()
+    // }else{
+
+    // }
+    if(app.globalData.playingSongInfo){
+      if(this.data.songInfo.id!==app.globalData.playingSongInfo.id){
+        app.globalData.playingSongInfo=info
+        this.setData({
+          isShow:true
+        })
+        const backgroundAudio =  this.selectComponent('#bgAudio')
+        backgroundAudio.getSongUrl()
+      }
     }else{
+      app.globalData.playingSongInfo=info
       this.setData({
-        isShow:true,
-        songInfo:info
+        isShow:true
       })
     }
+    // if(!this.data.songInfo){
+    //   app.globalData.playingSongInfo=info
+    //   this.setData({
+    //     isShow:true,
+    //     songInfo:info
+    //   })
+    //   backgroundAudio.getSongUrl()
+    // }
+    // app.globalData.playingSongInfo=info
+    // const backgroundAudio =  this.selectComponent('#bgAudio')
+    // if(this.data.songInfo&&this.data.songInfo.id===info.id){
+    //   console.log('id一致')
+    //   backgroundAudio.playMusic()
+    //   this.setData({
+    //     songInfo:info
+    //   })
+    // }else{
+    //   console.log('id不一致，播放新的音乐')
+    //   this.setData({
+    //     isShow:true,
+    //     songInfo:info
+    //   })
+    //   backgroundAudio.getSongUrl()
+    // }
   },
   /**
    * @description: 点击按钮暂停音乐事件

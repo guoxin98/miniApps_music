@@ -1,18 +1,17 @@
+/*
+ * @Author: guoxin
+ * @Date: 2023-02-18 10:53:49
+ * @LastEditors: guoxin
+ * @LastEditTime: 2023-04-01 00:48:21
+ * @Description: void
+ */
 App({
   onLaunch: function() {
-    const info = wx.getSystemInfoSync()
-    this.globalData.screenWidth = info.screenWidth
-    this.globalData.screenHeight = info.screenHeight
-    this.globalData.statusBarHeight = info.statusBarHeight
-
-    const deviceRadio = info.screenHeight / info.screenWidth
-    this.globalData.deviceRadio = deviceRadio
+    // 创建一个全局音乐实例
+    this.globalData.audioContext = wx.createInnerAudioContext();
   },
   globalData: {
-    screenWidth: 0,
-    screenHeight: 0,
-    statusBarHeight: 0,
-    navBarHeight: 44,
-    deviceRadio: 0
-  }
+    audioContext: null,
+    playingSongInfo:null, //当前播放的音乐信息
+  },
 })
