@@ -2,11 +2,12 @@
  * @Author: guoxin
  * @Date: 2023-03-29 20:39:19
  * @LastEditors: guoxin
- * @LastEditTime: 2023-03-29 22:17:05
+ * @LastEditTime: 2023-04-01 14:52:10
  * @Description: 小程序登录页面
  */
 import Toast from '@vant/weapp/toast/toast';
 import { sentCaptcha, verifyCaptcha,loginByCellPhone } from '../../api/api-login'
+import storage from '../../utils/storage';
 Page({
   data: {
     phone: '',
@@ -96,7 +97,7 @@ Page({
     if(res.code!==200&&res.message){
       Toast(res.message)
     }else{
-      wx.setStorageSync('token',res.data.verifyToken);
+      storage.set('token',res.data.verifyToken);
       wx.switchTab({
         url: "/pages/home-music/index",
       });

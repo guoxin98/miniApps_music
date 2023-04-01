@@ -1,8 +1,9 @@
 import {getPlayListDetail} from "../../api/api-music"
 import storage from "../../utils/storage"
 const app =  getApp();
+const AUDIO_COMPONENT_SELECTOR = '#bgAudio';  //底部音乐组件选择器
+// import backgroundAudioManager from '../../utils/backgroundAudio'
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -12,6 +13,7 @@ Page({
     musicStatus:true,
     songInfo:null,
     isShow:false,
+    isRefreshTracks:false
   },
   /**
    * 生命周期函数--监听页面加载
@@ -24,14 +26,6 @@ Page({
       })
     }
     this.getPlayListDetail(options.id)
-  },
-  onShow(options){
-    console.log(options)
-    // if(app.globalData.playingSongInfo){
-    //   if(this.data.songInfo&&this.data.songInfo.id===app.globalData.playingSongInfo.id){
-    //     this.changeTrackStatus(options.isPlaying)
-    //   }
-    // }
   },
   // 为了方便控制播放暂停按钮的样式变换
   // playSong、pauseSong事件都会触发子组件的playMusic、pauseMusic事件，在子组件的事件触发后会改变页面的状态
@@ -47,18 +41,24 @@ Page({
     app.globalData.isPlaying = true
     if(app.globalData.playingSongInfo){
       if(this.data.songInfo.id!==app.globalData.playingSongInfo.id){
+        // 点击播放的歌曲和全局变量中的歌曲不一致，重新赋值
         app.globalData.playingSongInfo=info
         this.setData({
           isShow:true
         })
-        const backgroundAudio =  this.selectComponent('#bgAudio')
+        const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
         backgroundAudio.getSongUrl()
+      }else{
+        const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
+        backgroundAudio.playMusic()
       }
     }else{
       app.globalData.playingSongInfo=info
       this.setData({
         isShow:true
       })
+      const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
+      backgroundAudio.playMusic()
     }
   },
   /**
@@ -67,7 +67,7 @@ Page({
    */  
   pauseSong(){
     app.globalData.isPlaying = false
-    const backgroundAudio =  this.selectComponent('#bgAudio')
+    const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
     backgroundAudio.pauseMusic()
   },
   // 修改tracks的方法
@@ -100,6 +100,9 @@ Page({
         listInfo:res.playlist,
         tracks:tracks
       })
+      if(this.data.isRefreshTracks){
+        this.changeTrackStatus(false,app.globalData.playingSongInfo)
+      }
     })
   },
   onShareTap: function () {
@@ -157,9 +160,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    if(app.globalData.playingSongInfo){
+      if(app.globalData.isPlaying){
+        this.setData({
+          isRefreshTracks:true
+        })
+      }
+    }
   },
-
   /**
    * 生命周期函数--监听页面隐藏
    */

@@ -1,6 +1,6 @@
 /* pages/home-music/index.wxss */
-page{
-  padding: 0 20rpx;
+.home-music{
+  padding: 0 20rpx 10vh 20rpx;
 }
 .van-search__content{
   background-color: #fff !important;

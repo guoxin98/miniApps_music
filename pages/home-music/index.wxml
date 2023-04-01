@@ -1,36 +1,38 @@
 <!-- pages/home-music/index.wxml -->
 <!-- 搜索框 -->
-<van-search placeholder="搜索你喜欢的歌曲" disabled bindtap="handleSearchClick" background="#fafafa" shape="round" />
-<!-- 轮播图 -->
-<swiper indicator-dots autoplay circular="{{true}}" class="swiper" style="height:{{height}}px;">
-  <block style="border:4px;overflow:hidden">
-    <swiper-item class="swiper-item" wx:for="{{bannerList}}" wx:key="bannerId">
-      <image class="swiper-image" src="{{item.pic}}" bindload="swiperImageLoaded"></image>
-    </swiper-item>
-  </block>
-</swiper>
-<!-- 歌曲推荐 -->
-<!-- <view class="recommend-song">
+<view class="home-music">
+  <van-search placeholder="搜索你喜欢的歌曲" disabled bindtap="handleSearchClick" background="#fafafa" shape="round" />
+  <!-- 轮播图 -->
+  <swiper indicator-dots autoplay circular="{{true}}" class="swiper" style="height:{{height}}px;">
+    <block style="border:4px;overflow:hidden">
+      <swiper-item class="swiper-item" wx:for="{{bannerList}}" wx:key="bannerId">
+        <image class="swiper-image" src="{{item.pic}}" bindload="swiperImageLoaded"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- 歌曲推荐 -->
+  <!-- <view class="recommend-song">
   <area-header title="推荐歌曲"></area-header>
   <song-item-v1 wx:for="{{recommendList}}" wx:key="id" item="{{item}}"></song-item-v1>
 </view> -->
-<!-- 热门歌单 -->
-<song-menu-area list="{{hotPlayList}}"></song-menu-area>
-<!-- 巅峰榜 -->
-<area-header title="巅峰榜" showDefault="{{false}}"></area-header>
-<view class="ranking">
-  <block wx:for="{{topList}}" wx:key="id">
-    <view class="ranking-box" data-item="{{item}}" bindtap="goTopListDetail">
-      <view class="image-box">
-        <image src="{{item.coverImgUrl}}"></image>
-        <text>{{item.updateFrequency}}</text>
+  <!-- 热门歌单 -->
+  <song-menu-area list="{{hotPlayList}}"></song-menu-area>
+  <!-- 巅峰榜 -->
+  <area-header title="巅峰榜" showDefault="{{false}}"></area-header>
+  <view class="ranking">
+    <block wx:for="{{topList}}" wx:key="id">
+      <view class="ranking-box" data-item="{{item}}" bindtap="goTopListDetail">
+        <view class="image-box">
+          <image src="{{item.coverImgUrl}}"></image>
+          <text>{{item.updateFrequency}}</text>
+        </view>
+        <view class="song-box">
+          <text wx:for="{{3}}" wx:key="*this" wx:for-item='song'>
+            {{song+1}}.{{item.tracks[song].first}}-{{item.tracks[song].second}}
+          </text>
+        </view>
       </view>
-      <view class="song-box">
-        <text wx:for="{{3}}" wx:key="*this" wx:for-item='song'>
-          {{song+1}}.{{item.tracks[song].first}}-{{item.tracks[song].second}}
-        </text>
-      </view>
-    </view>
-  </block>
+    </block>
+  </view>
+  <background-audio-v1 wx:if="{{isShow}}" id="bgAudio"></background-audio-v1>
 </view>
-<background-audio-v1 wx:if="{{isShow}}"  id="bgAudio" ></background-audio-v1>

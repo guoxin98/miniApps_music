@@ -2,7 +2,7 @@
  * @Author: guoxin
  * @Date: 2023-03-30 16:30:37
  * @LastEditors: guoxin
- * @LastEditTime: 2023-04-01 12:04:53
+ * @LastEditTime: 2023-04-01 21:01:03
  * @Description: 播放音乐后底部状态栏
  */
 // components/background-audio-v1/index.js
@@ -14,7 +14,6 @@ Component({
    */
   properties: {
   },
-
   /**
    * 组件的初始数据
    */
@@ -23,13 +22,19 @@ Component({
     songUrl:null,
     songInfo:app.globalData.playingSongInfo,
     musicStatus:true,
-    innerAudioContext:null, //音频上下文
+    backgroundAudio:null, //音频上下文
   },
   created(){
-    const innerAudioContext = app.globalData.audioContext
+    const backgroundAudio = app.globalData.backgroundAudioContext
     this.setData({
-      innerAudioContext:innerAudioContext,
+      backgroundAudio:backgroundAudio
       // playing:app.globalData.isPlaying
+    })
+    backgroundAudio.onPlay(()=>{
+      this.playMusic()
+    })
+    backgroundAudio.onPause(()=>{
+      this.pauseMusic()
     })
   },
   attached(){
@@ -52,32 +57,28 @@ Component({
     },
     setBackgroundMusic(){
       // 设置音乐内容并初始化播放
-      this.data.innerAudioContext.src = this.data.songUrl
-      this.data.innerAudioContext.autoplay=true
-      this.data.innerAudioContext.loop = true
+      this.data.backgroundAudio.src = this.data.songUrl
+      this.data.backgroundAudio.title=this.data.songInfo.name 
       if(app.globalData.isPlaying){
         this.playMusic()
+      }else{
+        this.pauseMusic()
       }
-      // 背景音乐的创建方法
-      // const bgMusic = wx.getBackgroundAudioManager()
-      // // 设置音频属性
-      // bgMusic.src = this.data.songUrl
-      // bgMusic.title = 'my song'
-      // bgMusic.play()
     },
     playMusic() {
-      this.data.innerAudioContext.play()
+      this.data.backgroundAudio.play()
       this.changePlayingStatus(true)
     },
     pauseMusic() {
-      this.data.innerAudioContext.pause()
+      this.data.backgroundAudio.pause()
+      wx.pauseBackgroundAudio()
       this.changePlayingStatus(false)
     },
     changePlayingStatus(isPlaying){
       this.setData({
         playing:isPlaying
       })
-      app.globalData.isPlaying = this.data.playing
+      app.globalData.isPlaying = isPlaying
       // 父组件元素变化
       this.triggerEvent('changeSongStatus',!isPlaying)
     }

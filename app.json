@@ -6,8 +6,7 @@
     "pages/detail-video/index",
     "pages/detail-search/index",
     "pages/music-player/index",
-    "pages/list-detail/index",
-    "pages/login/index"
+    "pages/list-detail/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -32,5 +31,9 @@
     ]
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "background-audio-v1": "/components/background-audio-v1/index"
+  },
+  "requiredBackgroundModes":["audio"]
 }
