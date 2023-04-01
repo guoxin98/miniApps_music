@@ -1,20 +1,13 @@
 
 <!--components/background-audio-v1/index.wxml-->
 <view class="music-bar" wx:if="{{musicStatus}}">
-  <image class="music-cover .rotate{{playing?'-start':''}}" src="{{songInfo.al.picUrl}}"></image>
+  <image class="music-cover .rotate{{playing?'-start':''}}" src="{{songInfo.coverImgUrl}}"></image>
   <view class="music-info">
-    <view class="music-name">{{songInfo.name}}</view>
+    <view class="music-name">{{songInfo.title}}</view>
   </view>
   <view class="music-control">
     <van-icon name="pause-circle-o" class="player-icon" size="30px" color="#23d59c" wx:if="{{playing}}" bindtap="pauseMusic"  />
     <van-icon name="play-circle-o" class="player-icon" size="30px" color="#23d59c" wx:else bindtap="playMusic" />
     <van-icon name="bars" class="player-icon" color="#23d59c" size="30px" />  
   </view>
-    <background-audio
-      src="{{songUrl}}"
-      cover-img-url="{{songInfo.al.picUrl}}"
-      title="{{songInfo.name}}"
-      bindplay="playMusic"
-      bindpause="pauseMusic"
-    />
 </view>

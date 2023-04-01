@@ -1,4 +1,4 @@
-import {getPlayListDetail} from "../../api/api-music"
+import {getPlayListDetail,getSongUrl} from "../../api/api-music"
 import storage from "../../utils/storage"
 const app =  getApp();
 const AUDIO_COMPONENT_SELECTOR = '#bgAudio';  //底部音乐组件选择器
@@ -12,8 +12,10 @@ Page({
     tracks:[],
     musicStatus:true,
     songInfo:null,
+    songsIds:[], //播放列表的id集合
     isShow:false,
-    isRefreshTracks:false
+    isRefreshTracks:false,
+    isGetSongList:false, //是否已经获取过音乐列表
   },
   /**
    * 生命周期函数--监听页面加载
@@ -33,27 +35,35 @@ Page({
    * @description: 点击按钮播放音乐事件
    * @return {void}
    */
-  playSong(event){
+  async playSong(event){
+    if(!this.data.isGetSongList){
+      // 获取音乐列表
+      await this.getSongUrl()
+    } 
     const { info } = event.currentTarget.dataset
+    const songInfo = app.globalData.songInfos.find((item,index)=>{
+      app.globalData.currentIndex  = index
+      return item.id ===info.id
+    });
     this.setData({
-      songInfo:info
+      songInfo:songInfo
     })
     app.globalData.isPlaying = true
     if(app.globalData.playingSongInfo){
       if(this.data.songInfo.id!==app.globalData.playingSongInfo.id){
         // 点击播放的歌曲和全局变量中的歌曲不一致，重新赋值
-        app.globalData.playingSongInfo=info
+        app.globalData.playingSongInfo=songInfo
         this.setData({
           isShow:true
         })
         const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
-        backgroundAudio.getSongUrl()
+        backgroundAudio.initData()
       }else{
         const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
         backgroundAudio.playMusic()
       }
     }else{
-      app.globalData.playingSongInfo=info
+      app.globalData.playingSongInfo=songInfo
       this.setData({
         isShow:true
       })
@@ -83,6 +93,7 @@ Page({
     this.setData({
       tracks:newTracks
     })
+
   },
   // 子组件修改音乐播放暂停，父组件页面发生变化
   changePlayingSong(e){
@@ -90,18 +101,47 @@ Page({
   },
   getPlayListDetail(id){
     getPlayListDetail(id).then((res)=>{
+      const ids = []
       const tracks = res.playlist.tracks.map(item=>{
+        ids.push(item.id)
         return {
           ...item,
           isPlaying:false
         }
       })
+      // 播放列表的id
+      app.globalData.songIds=[...ids]
       this.setData({
         listInfo:res.playlist,
         tracks:tracks
       })
       if(this.data.isRefreshTracks){
         this.changeTrackStatus(false,app.globalData.playingSongInfo)
+      }
+    })
+  },
+  async getSongUrl(){
+    // const res = await getSongUrl([app.globalData.playingSongInfo.id])
+    const res = await getSongUrl(app.globalData.songIds)
+    // 合并数组
+    const  mergeArr = this.data.tracks.concat(res.data)
+    // 根据id去重
+    const newArr = mergeArr.reduce((acc, obj) => {
+      let existingObj = acc.find(item => item.id === obj.id);
+      if (existingObj) {
+        Object.assign(existingObj, obj);
+      } else {
+        acc.push({id: obj.id, ...obj});
+      }
+      return acc;
+    }, []);
+    // 筛选属性
+    app.globalData.songInfos = newArr.map(({id,url,al:{name,picUrl}})=>{
+      return {
+        id,
+        src:url,
+        coverImgUrl:picUrl,
+        title:name
       }
     })
   },
