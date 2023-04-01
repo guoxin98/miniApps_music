@@ -25,7 +25,13 @@ Page({
     }
     this.getPlayListDetail(options.id)
   },
-  onShow(){
+  onShow(options){
+    console.log(options)
+    // if(app.globalData.playingSongInfo){
+    //   if(this.data.songInfo&&this.data.songInfo.id===app.globalData.playingSongInfo.id){
+    //     this.changeTrackStatus(options.isPlaying)
+    //   }
+    // }
   },
   // 为了方便控制播放暂停按钮的样式变换
   // playSong、pauseSong事件都会触发子组件的playMusic、pauseMusic事件，在子组件的事件触发后会改变页面的状态
@@ -38,17 +44,7 @@ Page({
     this.setData({
       songInfo:info
     })
-    // if(app.globalData.playingSongInfo&&this.data.songInfo.id!==app.globalData.playingSongInfo.id){
-      
-    //   app.globalData.playingSongInfo=info
-    //   this.setData({
-    //     isShow:true,
-    //     songInfo:info
-    //   })
-    //   backgroundAudio.getSongUrl()
-    // }else{
-
-    // }
+    app.globalData.isPlaying = true
     if(app.globalData.playingSongInfo){
       if(this.data.songInfo.id!==app.globalData.playingSongInfo.id){
         app.globalData.playingSongInfo=info
@@ -64,36 +60,13 @@ Page({
         isShow:true
       })
     }
-    // if(!this.data.songInfo){
-    //   app.globalData.playingSongInfo=info
-    //   this.setData({
-    //     isShow:true,
-    //     songInfo:info
-    //   })
-    //   backgroundAudio.getSongUrl()
-    // }
-    // app.globalData.playingSongInfo=info
-    // const backgroundAudio =  this.selectComponent('#bgAudio')
-    // if(this.data.songInfo&&this.data.songInfo.id===info.id){
-    //   console.log('id一致')
-    //   backgroundAudio.playMusic()
-    //   this.setData({
-    //     songInfo:info
-    //   })
-    // }else{
-    //   console.log('id不一致，播放新的音乐')
-    //   this.setData({
-    //     isShow:true,
-    //     songInfo:info
-    //   })
-    //   backgroundAudio.getSongUrl()
-    // }
   },
   /**
    * @description: 点击按钮暂停音乐事件
    * @return {*}
    */  
   pauseSong(){
+    app.globalData.isPlaying = false
     const backgroundAudio =  this.selectComponent('#bgAudio')
     backgroundAudio.pauseMusic()
   },

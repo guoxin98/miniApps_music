@@ -33,3 +33,4 @@
     </view>
   </block>
 </view>
+<background-audio-v1 wx:if="{{isShow}}"  id="bgAudio" ></background-audio-v1>

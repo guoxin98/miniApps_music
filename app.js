@@ -13,5 +13,6 @@ App({
   globalData: {
     audioContext: null,
     playingSongInfo:null, //当前播放的音乐信息
+    isPlaying:false, //当前是否正在播放音乐
   },
 })

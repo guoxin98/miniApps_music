@@ -2,7 +2,7 @@
  * @Author: guoxin
  * @Date: 2023-03-30 16:30:37
  * @LastEditors: guoxin
- * @LastEditTime: 2023-04-01 01:05:16
+ * @LastEditTime: 2023-04-01 12:04:53
  * @Description: 播放音乐后底部状态栏
  */
 // components/background-audio-v1/index.js
@@ -13,27 +13,13 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    // songInfo:{
-    //   type:Object,
-    //   value:{},
-    //   observer: function(newVal, oldVal) {
-    //     if(this.data.songUrl){
-    //       // 当切换音频的时候，会自动开始播放新的歌曲
-    //       this.getSongUrl()
-    //     }
-    //   }
-    // },
-    // isChangeSong:{
-    //   type:Boolean,
-    //   value:false
-    // }
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    playing: true,
+    playing: app.globalData.isPlaying,
     songUrl:null,
     songInfo:app.globalData.playingSongInfo,
     musicStatus:true,
@@ -43,6 +29,7 @@ Component({
     const innerAudioContext = app.globalData.audioContext
     this.setData({
       innerAudioContext:innerAudioContext,
+      // playing:app.globalData.isPlaying
     })
   },
   attached(){
@@ -56,7 +43,6 @@ Component({
       this.setData({
         songInfo:app.globalData.playingSongInfo
       })
-      console.log(app.globalData.playingSongInfo.name)
       const res = await getSongUrl(app.globalData.playingSongInfo.id)
       this.setData({
         songUrl:res.data[0].url
@@ -69,8 +55,9 @@ Component({
       this.data.innerAudioContext.src = this.data.songUrl
       this.data.innerAudioContext.autoplay=true
       this.data.innerAudioContext.loop = true
-      
-      this.playMusic()
+      if(app.globalData.isPlaying){
+        this.playMusic()
+      }
       // 背景音乐的创建方法
       // const bgMusic = wx.getBackgroundAudioManager()
       // // 设置音频属性
@@ -90,6 +77,7 @@ Component({
       this.setData({
         playing:isPlaying
       })
+      app.globalData.isPlaying = this.data.playing
       // 父组件元素变化
       this.triggerEvent('changeSongStatus',!isPlaying)
     }

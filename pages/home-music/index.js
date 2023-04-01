@@ -1,6 +1,8 @@
 // pages/home-music/index.js
 import { getBanner,getRecomendSongs,getHotPlayList, getToplist} from '../../api/api-music'
 import queryReact from '../../utils/query-react'
+const app =  getApp();
+
 Page({
   /**
    * 页面的初始数据
@@ -12,6 +14,8 @@ Page({
     recommendList:[], //推荐歌曲
     topList:[], //巅峰榜单
     hotPlayList:[], //热门歌单
+    isShow:false,
+    compareSongInfo:null, //比较的歌词
   },
 
   /**
@@ -100,7 +104,32 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  onShow(options) {
+    const songInfo = app.globalData.playingSongInfo
+    const isPlaying = app.globalData.isPlaying
+    if(songInfo){
+      // 如果存在全局属性
+      // 判断该属性的值是否和初始值一致
+      const backgroundAudio =  this.selectComponent('#bgAudio')
+      if(this.data.compareSongInfo){
+        if(this.data.compareSongInfo.id!==songInfo.id){
+        // 歌曲不一致，调用子组件，重新获取歌曲
+          this.setData({
+            compareSongInfo:songInfo,
+            isShow:true
+          })
+          backgroundAudio.getSongUrl()
+        }
+        if(!isPlaying){
+          backgroundAudio.pauseMusic()
+        }
+      }else{
+        this.setData({
+          compareSongInfo:songInfo,
+          isShow:true
+        })
+      }
+    }
   },
 
   /**
