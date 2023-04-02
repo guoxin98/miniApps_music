@@ -39,7 +39,6 @@
 .music-info{
   font-size: 24rpx;
   flex:1;
-  margin: 0 40rpx;
   overflow: hidden;
 }
 .music-control{
@@ -54,8 +53,8 @@
   cursor: pointer;
 }
 .music-name{
-  width: fit-content;
   white-space: nowrap;
+  width: 100%;
 }
 /* 滚动css */
 .scroll{

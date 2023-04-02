@@ -3,7 +3,13 @@
 <view class="music-bar" wx:if="{{musicStatus}}">
   <image class="music-cover .rotate{{playing?'-start':''}}" src="{{songInfo.coverImgUrl}}"></image>
   <view class="music-info">
-    <view class="music-name">{{songInfo.title}}</view>
+    <view class="music-name">
+      <van-notice-bar
+        text="{{songInfo.title}}"
+        color="#000"
+        background="#fafafa"
+      />
+    </view>
   </view>
   <view class="music-control">
     <van-icon name="pause-circle-o" class="player-icon" size="30px" color="#23d59c" wx:if="{{playing}}" bindtap="pauseMusic"  />

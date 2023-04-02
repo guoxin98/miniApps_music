@@ -118,7 +118,7 @@ Page({
             compareSongInfo:songInfo,
             isShow:true
           })
-          backgroundAudio.getSongUrl()
+          backgroundAudio.initData()
           if(!isPlaying){
             backgroundAudio.pauseMusic()
           }

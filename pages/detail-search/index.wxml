@@ -1,2 +1,56 @@
 <!-- pages/detail-search/index.wxml -->
-<van-search placeholder="搜索你喜欢的歌曲" bindtap="handleSearchClick" background="#fafafa" shape="round" />
+<view class="detail-search">
+  <van-search placeholder="搜索歌曲" value="{{searchValue}}" background="#fff" shape="round" 
+    bind:search="handleSearchClick"
+    bind:change="getSearchSuggest"
+    bind:clear="setShowDropdownValue"
+    bind:focus="setShowDropdownValue"
+  />
+  <view class="suggestion-list" wx:if="{{ showDropdown }}"  wx:for="{{ options }}"  wx:key="index">
+    <view class="suggestion-item" data-keywords="{{item}}" bindtap="handleSearchClick">
+      <van-icon name="search" size="20px" color= "#777" />
+      <view class="suggestion-name">
+        {{item}}
+      </view>
+    </view>
+  </view> 
+  <view wx:if="{{!showDropdown}}">
+    <view class="search-history" wx:if="{{searchHistory.length}}">
+      <area-header title="历史记录" class="area-header" showDefault="{{false}}">
+      </area-header>
+      <view class="history-list">
+        <van-button 
+          round 
+          wx:for="{{searchHistory}}" wx:key="index"
+          type="info" 
+          bindtap="handleSearchClick" 
+          data-keywords="{{item}}" 
+          class="hot-btn" color="#fafafa" 
+        >
+          {{item}}
+        </van-button>
+      </view>
+    </view>
+    <view class="hot-search">
+      <area-header title="热搜榜" class="area-header" showDefault="{{false}}">
+      </area-header>
+      <view class="search-list" wx:for="{{hotSearchList}}" wx:key="index" >
+        <view class="list-item" bindtap="handleSearchClick" data-keywords="{{item.searchWord}}" >
+          <view class="title">{{index+1}}</view>
+          <view class="content">
+            <view class="key-word">
+              {{item.searchWord}}
+              <view class="hot" wx:if="{{item.iconType===1}}">
+                hot
+              </view>
+            </view>
+            <view class="descri" wx:if="{{item.content}}">{{item.content}}</view>
+          </view>
+          <view class="score">
+            {{item.score}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -121,7 +121,6 @@ Page({
     })
   },
   async getSongUrl(){
-    // const res = await getSongUrl([app.globalData.playingSongInfo.id])
     const res = await getSongUrl(app.globalData.songIds)
     // 合并数组
     const  mergeArr = this.data.tracks.concat(res.data)

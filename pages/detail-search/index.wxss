@@ -1,1 +1,84 @@
 /* pages/detail-search/index.wxss */
+.detail-search{
+  background-color: #fff !important;
+  padding: 0 30rpx 15rpx 30rpx;
+}
+.list-item{
+  display: flex;
+  align-items: center;
+  height: auto;
+  margin-bottom: 50rpx;
+}
+.list-item .title{
+  color:#777;
+  width: 40rpx;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 34rpx;
+}
+.list-item .content{
+  display: flex;
+  flex-direction: column;
+  flex:1;
+  margin-left: 20rpx;
+}
+.list-item .key-word{
+  font-size: 36rpx;
+  display: flex;
+}
+.list-item .key-word .hot{
+  margin-left: 10rpx;
+  font-style:italic;
+  color:#ff3a3a;
+}
+.list-item .descri{
+  margin-top: 10rpx;
+  color:#777;
+  white-space: nowrap;
+  max-width: 500rpx;
+  /* min-width: 0; */
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+.list-item .score{
+  color:#777;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+}
+/* 历史记录样式 */
+.hot-btn{
+  margin: 0 20rpx 20rpx 0;
+  cursor: pointer;
+}
+.hot-btn .van-button__text{
+  color:#000;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.hot-btn .van-button{
+  width: fit-content;
+  height: auto;
+  padding:12rpx 25rpx;
+}
+.history-list{
+  display: flex;
+  flex-wrap: wrap;
+}
+/* 搜索建议模块 */
+.suggestion-item{
+  display: flex;
+  margin-top: 30rpx;
+  align-items: center;
+}
+.suggestion-name{
+  margin-left: 30rpx;
+  flex:1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color:#888;
+}
