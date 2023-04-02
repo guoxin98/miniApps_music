@@ -16,7 +16,10 @@
   </view> 
   <view wx:if="{{!showDropdown}}">
     <view class="search-history" wx:if="{{searchHistory.length}}">
-      <area-header title="历史记录" class="area-header" showDefault="{{false}}">
+      <area-header title="历史记录" class="area-header">
+        <view slot="icon" bindtap="clearSearchHistory">
+          <van-icon name="delete-o" />
+        </view>
       </area-header>
       <view class="history-list">
         <van-button 

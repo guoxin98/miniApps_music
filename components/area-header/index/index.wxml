@@ -6,7 +6,9 @@
     </view>
     <view class="default" wx:if="{{showDefault}}">
       <text>{{rightText}}</text>
-      <image class="icon" src="/assets/images/icons/arrow-right.png"></image>
+      <slot name="icon">
+        <image class="icon" src="/assets/images/icons/arrow-right.png"></image>
+      </slot>
     </view>
   </view>
 </view>
