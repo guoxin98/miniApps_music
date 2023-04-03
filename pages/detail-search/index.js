@@ -14,6 +14,7 @@ Page({
     searchHistory:[],
     showDropdown:false, //是否展示搜索建议下拉菜单
     options:[], //搜索建议列表
+    showLoadingGif:false, //是否展示加载gif
   },
 
   /**
@@ -41,7 +42,8 @@ Page({
     // 触发搜索事件
     // e.currentTarget.dataset.keywords or e.detail
     this.setData({
-      showDropdown:false
+      showDropdown:false,
+      showLoadingGif:true
     })
     let keywords
     if(e.currentTarget.dataset.keywords){
@@ -59,6 +61,9 @@ Page({
     })
     storage.set(SEARCH_HISTORY,historySet)
     const res = await getSearchMultimatch(keywords)
+    this.setData({
+      showLoadingGif:false
+    })
   },
   async getSearchSuggest(e){
     // 触发搜索事件

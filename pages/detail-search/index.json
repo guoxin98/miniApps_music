@@ -4,6 +4,7 @@
     "area-header":"/components/area-header/index",
     "van-button": "@vant/weapp/button/index",
     "van-cell": "@vant/weapp/cell/index",
-    "van-icon":"@vant/weapp/icon/index"
+    "van-icon":"@vant/weapp/icon/index",
+    "van-loading": "@vant/weapp/loading/index"
   }
 }

@@ -6,7 +6,7 @@
     bind:clear="setShowDropdownValue"
     bind:focus="setShowDropdownValue"
   />
-  <view class="suggestion-list" wx:if="{{ showDropdown }}"  wx:for="{{ options }}"  wx:key="index">
+  <view class="suggestion-list" wx:if="{{ showDropdown&&!showLoadingGif }}"  wx:for="{{ options }}"  wx:key="index">
     <view class="suggestion-item" data-keywords="{{item}}" bindtap="handleSearchClick">
       <van-icon name="search" size="20px" color= "#777" />
       <view class="suggestion-name">
@@ -14,7 +14,7 @@
       </view>
     </view>
   </view> 
-  <view wx:if="{{!showDropdown}}">
+  <view wx:if="{{!showDropdown&&!showLoadingGif}}">
     <view class="search-history" wx:if="{{searchHistory.length}}">
       <area-header title="历史记录" class="area-header">
         <view slot="icon" bindtap="clearSearchHistory">
@@ -55,5 +55,9 @@
         </view>
       </view>
     </view>
+  </view>
+  <view class="loading" wx:if="{{showLoadingGif}}">
+    <image src="../../assets/images/loading.gif">
+    </image>
   </view>
 </view>
