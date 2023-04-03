@@ -1,0 +1,62 @@
+/* components/song-list/index.wxss */
+.list-song{
+  height: auto;
+  background-color: #fff;
+  margin-top: 30rpx;
+  border-radius: 30rpx 30rpx 0 0;
+}
+.list-song .list-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+.list-item .index{
+  font-size: 24px;
+  color:#444242bd;
+  width: 90rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.list-item .song-info{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.song-name{
+  max-width: 60vw;
+  font-size: 32rpx;
+}
+.song-descri{
+  display: flex;
+  align-items: center;
+  color:#444242bd;
+  max-width: 500rpx;
+}
+/* .song-status{
+  width: 100rpx;
+  height: 100rpx;
+} */
+.sq{
+  height: 50rpx;
+  display: flex;
+  align-items: flex-end;
+}
+.sq-icon{
+  width: 40rpx;
+  height: 20rpx;
+}
+.overflow-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.descri{
+  min-width: 0;
+  font-size: 22rpx;
+  flex:1;
+  margin-left: 10rpx;
+}

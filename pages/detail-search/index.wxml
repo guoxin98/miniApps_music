@@ -1,21 +1,14 @@
 <!-- pages/detail-search/index.wxml -->
+<wxs src="../../utils/format.wxs" module="format"></wxs>
 <view class="detail-search">
   <van-search placeholder="搜索歌曲" value="{{searchValue}}" background="#fff" shape="round" 
     bind:search="handleSearchClick"
     bind:change="getSearchSuggest"
-    bind:clear="setShowDropdownValue"
-    bind:focus="setShowDropdownValue"
+    bind:clear="setShowSuggestionListValue"
   />
-  <view class="suggestion-list" wx:if="{{ showDropdown&&!showLoadingGif }}"  wx:for="{{ options }}"  wx:key="index">
-    <view class="suggestion-item" data-keywords="{{item}}" bindtap="handleSearchClick">
-      <van-icon name="search" size="20px" color= "#777" />
-      <view class="suggestion-name">
-        {{item}}
-      </view>
-    </view>
-  </view> 
-  <view wx:if="{{!showDropdown&&!showLoadingGif}}">
-    <view class="search-history" wx:if="{{searchHistory.length}}">
+  <van-tabs active="{{ active }}" bind:change="onChange">
+    <van-tab title="" name="showDefaultPage" wx:if="{{active==='showDefaultPage'}}">
+      <view class="search-history" wx:if="{{searchHistory.length}}">
       <area-header title="历史记录" class="area-header">
         <view slot="icon" bindtap="clearSearchHistory">
           <van-icon name="delete-o" />
@@ -33,13 +26,13 @@
           {{item}}
         </van-button>
       </view>
-    </view>
-    <view class="hot-search">
+      </view>
+      <view class="hot-search">
       <area-header title="热搜榜" class="area-header" showDefault="{{false}}">
       </area-header>
       <view class="search-list" wx:for="{{hotSearchList}}" wx:key="index" >
         <view class="list-item" bindtap="handleSearchClick" data-keywords="{{item.searchWord}}" >
-          <view class="title">{{index+1}}</view>
+          <view class="title {{index<3?'hot':''}}">{{index+1}}</view>
           <view class="content">
             <view class="key-word">
               {{item.searchWord}}
@@ -54,10 +47,41 @@
           </view>
         </view>
       </view>
-    </view>
-  </view>
-  <view class="loading" wx:if="{{showLoadingGif}}">
-    <image src="../../assets/images/loading.gif">
-    </image>
-  </view>
+      </view>
+    </van-tab>
+    <van-tab title="" name="showSuggestionPage" wx:if="{{active==='showSuggestionPage'}}">
+      <view class="suggestion-list"   wx:for="{{ options }}"  wx:key="index">
+        <view class="suggestion-item" data-keywords="{{item}}" bindtap="handleSearchClick">
+          <van-icon name="search" size="20px" color= "#777" />
+          <view class="suggestion-name">
+          {{item}}
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="" name="showSearchResultPage" wx:if="{{active==='showSearchResultPage'}}">
+      <view class="list-song" wx:for="{{songList}}" wx:key="index">
+        <!-- <van-cell title="{{item.name}}" label="{{format.formatSongAr(item.artists)}}-{{item.album.name}}" >
+          <view slot="right-icon">
+            <van-icon name="play-circle-o" color="#777" size="25px" />
+          </view>
+        </van-cell> -->
+        <view class="result-item">
+          <view class="item-info">
+            <view class="info-name info-ellipsis">{{item.name}}</view>
+            <view class="info-label info-ellipsis">{{format.formatSongAr(item.artists)}}-{{item.album.name}}</view>
+          </view>
+          <view class="right-icon">
+            <van-icon name="play-circle-o" color="#777" size="35px" />
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="" name="showLoadingPage" wx:if="{{active==='showLoadingPage'||showLoading}}">
+      <view class="loading">
+        <image src="../../assets/images/loading.gif">
+        </image>
+      </view>
+    </van-tab>
+  </van-tabs>
 </view>

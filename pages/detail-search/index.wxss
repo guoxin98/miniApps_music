@@ -33,6 +33,9 @@
   font-style:italic;
   color:#ff3a3a;
 }
+.hot{
+  color:#ff3a3a !important;
+}
 .list-item .descri{
   margin-top: 10rpx;
   color:#777;
@@ -90,4 +93,31 @@
 .loading image{
   width: 60rpx;
   height: 60rpx;
+}
+
+/* 搜索结果列表模块 */
+.result-item{
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+.result-item .item-info{
+  flex:1;
+  display: flex;
+  flex-direction: column;
+}
+.item-info .info-name{
+  max-width: 600rpx;
+  font-size: 32rpx;
+}
+.item-info .info-label{
+  margin-top: 15rpx;
+  font-size: 24rpx;
+  color:#777;
+  max-width: 600rpx;
+}
+.info-ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

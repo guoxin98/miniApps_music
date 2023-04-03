@@ -1,20 +1,27 @@
 // pages/detail-search/index.js
-import { getHotSearchList, getSearchMultimatch,getSearchSuggest } from '../../api/api-music'
+import { getHotSearchList, getSearchResult,getSearchSuggest } from '../../api/api-music'
 import storage from '../../utils/storage'
 const SEARCH_HISTORY = 'searchHistory'
+const SHOW_DEFAULT_PAGE = 'showDefaultPage'
+const SHOW_SUGGESTION_PAGE = 'showSuggestionPage'
+const SHOW_SERACH_RESULT_PAGE = 'showSearchResultPage'
+const SHOW_LOADING_PAGE = 'showLoadingPage'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    active:SHOW_DEFAULT_PAGE,
     searchValue:"", //搜索词
     hotSearchList:[], // 热门搜索列表
     isShowHotList:false, //是否展示热搜列表
     searchHistory:[],
-    showDropdown:false, //是否展示搜索建议下拉菜单
     options:[], //搜索建议列表
-    showLoadingGif:false, //是否展示加载gif
+    songList:[], // 搜索歌曲结果列表
+    offset:0, // 偏移量
+    hasMore:false, //是否还有更多
+    showLoading:false, //是否展示加载动画
   },
 
   /**
@@ -41,10 +48,7 @@ Page({
   async handleSearchClick(e){
     // 触发搜索事件
     // e.currentTarget.dataset.keywords or e.detail
-    this.setData({
-      showDropdown:false,
-      showLoadingGif:true
-    })
+    this.getComputedActive(SHOW_LOADING_PAGE)
     let keywords
     if(e.currentTarget.dataset.keywords){
       keywords = e.currentTarget.dataset.keywords
@@ -60,10 +64,12 @@ Page({
       searchHistory:historySet
     })
     storage.set(SEARCH_HISTORY,historySet)
-    const res = await getSearchMultimatch(keywords)
+    // 四个参数：关键词、数量、偏移量、类型1：单曲
+    const res = await getSearchResult(keywords,30,this.data.offset,1)
     this.setData({
-      showLoadingGif:false
+      songList:res.result.songs
     })
+    this.getComputedActive(SHOW_SERACH_RESULT_PAGE)
   },
   async getSearchSuggest(e){
     // 触发搜索事件
@@ -82,20 +88,29 @@ Page({
         }
       }
       this.setData({
-        showDropdown:true,
         options:options
       })
+      this.getComputedActive(SHOW_SUGGESTION_PAGE)
     }else{
       this.setData({
-        showDropdown:false
       })
+      this.getComputedActive(SHOW_DEFAULT_PAGE)
     }
+    
+  },
+  /**
+   * @description: 更改van-tab属性
+   * @param {*} activeName a:展示初始列表 b:展示搜索建议页面 c:展示搜索结果页面 d:展示loading加载动画
+   * @return {*}
+   */  
+  getComputedActive(activeName){
+    this.setData({
+      active:activeName
+    })
   },
   // 点击搜索框的清空按钮
-  setShowDropdownValue(){
-    this.setData({
-      showDropdown:false
-    })
+  setShowSuggestionListValue(){
+    this.getComputedActive(SHOW_DEFAULT_PAGE)
   },
   clearSearchHistory(){
     storage.remove(SEARCH_HISTORY)

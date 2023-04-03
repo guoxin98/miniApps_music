@@ -2,7 +2,7 @@
  * @Author: guoxin
  * @Date: 2023-03-01 19:45:57
  * @LastEditors: guoxin
- * @LastEditTime: 2023-04-02 20:56:25
+ * @LastEditTime: 2023-04-03 12:52:42
  * @Description: 请填写简介
  */
 import hyRequest from "../utils/request";
@@ -50,6 +50,6 @@ export const getSearchSuggest = (keywords)=>{
   return hyRequest.get('search/suggest',{keywords})
 }
 // 搜索匹配结果
-export const getSearchMultimatch = (keywords)=>{
-  return hyRequest.get('search/multimatch',{keywords})
+export const getSearchResult = (keywords,limit=30,offset=0,type=1)=>{
+  return hyRequest.get('search',{keywords,limit,offset,type})
 }
