@@ -60,21 +60,8 @@
       </view>
     </van-tab>
     <van-tab title="" name="showSearchResultPage" wx:if="{{active==='showSearchResultPage'}}">
-      <view class="list-song" wx:for="{{songList}}" wx:key="index">
-        <!-- <van-cell title="{{item.name}}" label="{{format.formatSongAr(item.artists)}}-{{item.album.name}}" >
-          <view slot="right-icon">
-            <van-icon name="play-circle-o" color="#777" size="25px" />
-          </view>
-        </van-cell> -->
-        <view class="result-item">
-          <view class="item-info">
-            <view class="info-name info-ellipsis">{{item.name}}</view>
-            <view class="info-label info-ellipsis">{{format.formatSongAr(item.artists)}}-{{item.album.name}}</view>
-          </view>
-          <view class="right-icon">
-            <van-icon name="play-circle-o" color="#777" size="35px" />
-          </view>
-        </view>
+      <view wx:for="{{songList}}" wx:key="index">
+        <song-item-v2 songInfo="{{item}}" bind:playSong="playSong"></song-item-v2>
       </view>
     </van-tab>
     <van-tab title="" name="showLoadingPage" wx:if="{{active==='showLoadingPage'||showLoading}}">

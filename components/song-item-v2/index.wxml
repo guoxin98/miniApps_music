@@ -1,6 +1,6 @@
 <!--components/song-item-v2/index.wxml-->
 <view class="list-item">
-  <view class="index">
+  <view class="index" wx:if="{{songInfo.index}}">
     {{songInfo.index}}
   </view>
   <view class="song-info">

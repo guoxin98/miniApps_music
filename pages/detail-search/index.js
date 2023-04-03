@@ -1,6 +1,7 @@
 // pages/detail-search/index.js
 import { getHotSearchList, getSearchResult,getSearchSuggest } from '../../api/api-music'
 import storage from '../../utils/storage'
+import {formatSongAr } from '../../utils/util'
 const SEARCH_HISTORY = 'searchHistory'
 const SHOW_DEFAULT_PAGE = 'showDefaultPage'
 const SHOW_SUGGESTION_PAGE = 'showSuggestionPage'
@@ -66,8 +67,17 @@ Page({
     storage.set(SEARCH_HISTORY,historySet)
     // 四个参数：关键词、数量、偏移量、类型1：单曲
     const res = await getSearchResult(keywords,30,this.data.offset,1)
+    const songList = res.result.songs.map(({album,artists,name,id})=>{
+      const artistsName = formatSongAr(artists)
+      return {
+        artists:artistsName,
+        albumName:album.name,
+        name,
+        id
+      }
+    })
     this.setData({
-      songList:res.result.songs
+      songList:songList
     })
     this.getComputedActive(SHOW_SERACH_RESULT_PAGE)
   },
