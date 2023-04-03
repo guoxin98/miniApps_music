@@ -1,5 +1,6 @@
 import {getPlayListDetail,getSongUrl} from "../../api/api-music"
 import storage from "../../utils/storage"
+import {formatSongAr} from '../../utils/util'
 const app =  getApp();
 const AUDIO_COMPONENT_SELECTOR = '#bgAudio';  //底部音乐组件选择器
 // import backgroundAudioManager from '../../utils/backgroundAudio'
@@ -12,7 +13,6 @@ Page({
     tracks:[],
     musicStatus:true,
     songInfo:null,
-    songsIds:[], //播放列表的id集合
     isShow:false,
     isRefreshTracks:false,
     isGetSongList:false, //是否已经获取过音乐列表
@@ -35,12 +35,12 @@ Page({
    * @description: 点击按钮播放音乐事件
    * @return {void}
    */
-  async playSong(event){
+  async playSong(e){
     if(!this.data.isGetSongList){
       // 获取音乐列表
       await this.getSongUrl()
     } 
-    const { info } = event.currentTarget.dataset
+    const info =e.detail
     const songInfo = app.globalData.songInfos.find((item,index)=>{
       app.globalData.currentIndex  = index
       return item.id ===info.id
@@ -102,10 +102,19 @@ Page({
   getPlayListDetail(id){
     getPlayListDetail(id).then((res)=>{
       const ids = []
-      const tracks = res.playlist.tracks.map(item=>{
-        ids.push(item.id)
+      const tracks = res.playlist.tracks.map(({id,al,name,ar,sq},index)=>{
+        // 专辑名称、歌曲名称、作者数组
+        // 对作者数组进行操作
+        const artists = formatSongAr(ar)
+        ids.push(id)
         return {
-          ...item,
+          id,
+          index:index+1,
+          albumName:al.name,
+          picUrl:al.picUrl,
+          name,
+          artists,
+          sq,
           isPlaying:false
         }
       })
@@ -134,8 +143,9 @@ Page({
       }
       return acc;
     }, []);
+    console.log(newArr)
     // 筛选属性
-    app.globalData.songInfos = newArr.map(({id,url,al:{name,picUrl}})=>{
+    app.globalData.songInfos = newArr.map(({id,url,name,picUrl})=>{
       return {
         id,
         src:url,

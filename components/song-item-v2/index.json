@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {"area-header":"/components/area-header/index"}
+  "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index"
+  }
 }

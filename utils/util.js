@@ -2,7 +2,7 @@
  * @Author: guoxin
  * @Date: 2023-02-18 10:53:49
  * @LastEditors: guoxin
- * @LastEditTime: 2023-03-30 22:14:33
+ * @LastEditTime: 2023-04-03 17:37:53
  * @Description: 工具函数集合
  */
 const formatTime = date => {
@@ -19,6 +19,14 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : `0${n}`
 }
+const formatSongAr=(ar)=>{
+  var str = ''
+  for(var i=0;i<ar.length;i++){
+    str=str+ar[i].name+'/'
+  }
+  return str.substring(0,str.length-1)
+}
 module.exports = {
-  formatTime,
+  formatTime:formatTime,
+  formatSongAr:formatSongAr,
 }

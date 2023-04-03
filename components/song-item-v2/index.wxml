@@ -1,2 +1,22 @@
 <!--components/song-item-v2/index.wxml-->
-<text>components/song-item-v2/index.wxml</text>
+<view class="list-item">
+  <view class="index">
+    {{songInfo.index}}
+  </view>
+  <view class="song-info">
+    <view class="song-name overflow-ellipsis">
+      {{songInfo.name}}
+    </view>
+    <view class="song-descri">
+      <view class="sq">
+        <image class="sq-icon" src="../../assets/images/icons/sq_icon.png" v-if="{{songInfo.sq}}">
+        </image>
+      </view>
+      <text class="descri overflow-ellipsis">
+        {{songInfo.artists}}-{{songInfo.albumName}}
+      </text>
+    </view>
+  </view>
+  <van-icon name="play-circle-o" size="40px" color="gray" data-info="{{songInfo}}" data-playing="{{songInfo.isPlaying}}" wx:if="{{!songInfo.isPlaying}}"  bindtap="playSong" />
+  <van-icon name="pause-circle-o" size="40px" color="gray" data-info="{{songInfo}}" data-playing="{{songInfo.isPlaying}}"  wx:if="{{songInfo.isPlaying}}"  bindtap="pauseSong" />
+</view>
