@@ -9,7 +9,7 @@
 .list-item .index{
   font-size: 24px;
   color:#444242bd;
-  width: 90rpx;
+  width: 120rpx;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@
   justify-content: space-between;
 }
 .song-name{
-  max-width: 60vw;
+  max-width: 65vw;
   font-size: 32rpx;
 }
 .song-descri{
@@ -29,11 +29,12 @@
   align-items: center;
   color:#444242bd;
   max-width: 500rpx;
+  margin-top: 10rpx;
 }
 .sq{
   height: 50rpx;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 }
 .sq-icon{
   width: 40rpx;
@@ -49,4 +50,9 @@
   font-size: 22rpx;
   flex:1;
   margin-left: 10rpx;
+}
+.hight-light{
+  display: flex;
+  max-width: 65vw;
+  font-size: 32rpx;
 }

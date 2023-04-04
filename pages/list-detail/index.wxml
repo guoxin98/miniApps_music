@@ -9,7 +9,7 @@
        <view class="description ellipsis">{{listInfo.description}}</view>
     </view>
   </view>
-  <van-button icon="share-o" size="normal"  bindtap="onShareTap" color="rgba(255, 255, 255, 0.05)" block round>分享给微信好友</van-button>
+  <van-button icon="share-o" size="normal" open-type="share" color="rgba(255, 255, 255, 0.05)" block round>分享给微信好友</van-button>
   <view class="list-song">
     <view wx:for="{{tracks}}" wx:key="id" class="list-item" >
       <song-item-v2 songInfo="{{item}}" bind:playSong="playSong" bind:pauseSong="pauseSong"></song-item-v2>

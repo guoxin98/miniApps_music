@@ -61,10 +61,16 @@
     </van-tab>
     <van-tab title="" name="showSearchResultPage" wx:if="{{active==='showSearchResultPage'}}">
       <view wx:for="{{songList}}" wx:key="index">
-        <song-item-v2 songInfo="{{item}}" bind:playSong="playSong"></song-item-v2>
+        <song-item-v2 keywords="{{searchValue}}" highLightColor="#000" isShowHighLight="{{true}}" songInfo="{{item}}" bind:playSong="playSong"></song-item-v2>
       </view>
+      <view class="has-more" wx:if="{{hasMore&!showLoading}}" bindtap="handleShowMoreResults">加载更多...</view>
+      <view class="loading" wx:if="{{showLoading}}">
+        <image src="../../assets/images/loading.gif">
+        </image>
+      </view>
+      <view class="has-more" wx:if="{{!hasMore}}">没有更多了</view>
     </van-tab>
-    <van-tab title="" name="showLoadingPage" wx:if="{{active==='showLoadingPage'||showLoading}}">
+    <van-tab title="" name="showLoadingPage" wx:if="{{active==='showLoadingPage'}}">
       <view class="loading">
         <image src="../../assets/images/loading.gif">
         </image>

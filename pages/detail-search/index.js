@@ -62,12 +62,19 @@ Page({
     const history = this.data.searchHistory.length?[keywords,...this.data.searchHistory]:[keywords]
     const historySet = Array.from(new Set(history))
     this.setData({
-      searchHistory:historySet
+      searchHistory:historySet,
+      // 初始化查询数据
+      offset:0,
+      songList:[]
     })
     storage.set(SEARCH_HISTORY,historySet)
+    this.getSearchResult(keywords)
+    this.getComputedActive(SHOW_SERACH_RESULT_PAGE)
+  },
+  async getSearchResult(keywords=this.data.searchValue){
     // 四个参数：关键词、数量、偏移量、类型1：单曲
     const res = await getSearchResult(keywords,30,this.data.offset,1)
-    const songList = res.result.songs.map(({album,artists,name,id})=>{
+    let songList = res.result.songs.map(({album,artists,name,id})=>{
       const artistsName = formatSongAr(artists)
       return {
         artists:artistsName,
@@ -76,10 +83,11 @@ Page({
         id
       }
     })
+    songList=this.data.songList.length?[...this.data.songList,...songList]:[...songList]
     this.setData({
-      songList:songList
+      songList:songList,
+      hasMore:res.result.hasMore,
     })
-    this.getComputedActive(SHOW_SERACH_RESULT_PAGE)
   },
   async getSearchSuggest(e){
     // 触发搜索事件
@@ -88,7 +96,6 @@ Page({
       const keywords=e.detail
       const res = await getSearchSuggest(keywords)
       const obj = res.result
-      // const keys = Object.keys(res.result)
       const options = []
       for(let key in obj){
         if(key!=='order'){
@@ -122,11 +129,32 @@ Page({
   setShowSuggestionListValue(){
     this.getComputedActive(SHOW_DEFAULT_PAGE)
   },
+  // 清空搜索历史
   clearSearchHistory(){
     storage.remove(SEARCH_HISTORY)
     this.setData({
       searchHistory:[]
     })
+  },
+  // 点击播放按钮跳转到音乐播放器页面
+  playSong(){
+  wx.navigateTo({
+    url: '/pages/music-player/index'
+  });
+  },
+  // 点击加载更多
+  handleShowMoreResults(){
+    const offset = this.data.offset+1
+    this.setData({
+      offset:offset,
+      showLoading:true
+    })
+    this.getSearchResult()
+    setTimeout(() => {
+      this.setData({
+        showLoading:false
+      })
+    }, 1000);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

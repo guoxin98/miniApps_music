@@ -133,8 +133,8 @@ Page({
     const res = await getSongUrl(app.globalData.songIds)
     // 合并数组
     const  mergeArr = this.data.tracks.concat(res.data)
-    // 根据id去重
-    const newArr = mergeArr.reduce((acc, obj) => {
+    // 根据id去重筛选
+    const siftArr = mergeArr.reduce((acc, obj) => {
       let existingObj = acc.find(item => item.id === obj.id);
       if (existingObj) {
         Object.assign(existingObj, obj);
@@ -143,59 +143,13 @@ Page({
       }
       return acc;
     }, []);
-    console.log(newArr)
     // 筛选属性
-    app.globalData.songInfos = newArr.map(({id,url,name,picUrl})=>{
+    app.globalData.songInfos = siftArr.map(({id,url,name,picUrl})=>{
       return {
         id,
         src:url,
         coverImgUrl:picUrl,
         title:name
-      }
-    })
-  },
-  onShareTap: function () {
-    wx.showActionSheet({
-      itemList: ['分享给好友', '分享到朋友圈', '分享到QQ'],
-      success: function (res) {
-        if (res.tapIndex === 0) {
-          // 分享给好友
-          wx.updateShareMenu({
-            title: '分享标题',
-            withShareTicket:true,
-            imageUrl: 'https://p1.music.126.net/pcYHpMkdC69VVvWiynNklA==/109951166952713766.jpg',
-            success: function () {
-              console.log('分享成功')
-            },
-            fail: function () {
-              console.log('分享失败')
-            }
-          })
-        } else if (res.tapIndex === 1) {
-          // 分享到朋友圈
-          wx.updateShareMenu({
-            withShareTicket: true,
-            success: function () {
-              wx.shareAppMessage({
-                title: '分享标题',
-                imageUrl: '分享图片的链接',
-                success: function () {
-                  console.log('分享成功')
-                },
-                fail: function () {
-                  console.log('分享失败')
-                }
-              })
-            }
-          })
-        } else if (res.tapIndex === 2) {
-          // 分享到QQ
-          wx.showModal({
-            title: '提示',
-            content: 'QQ分享功能暂未开放，敬请期待！',
-            showCancel: false
-          })
-        }
       }
     })
   },
