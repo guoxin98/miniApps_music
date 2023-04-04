@@ -14,6 +14,7 @@
   <view class="music-control">
     <van-icon name="pause-circle-o" class="player-icon" size="30px" color="#23d59c" wx:if="{{playing}}" bindtap="pauseMusic"  />
     <van-icon name="play-circle-o" class="player-icon" size="30px" color="#23d59c" wx:else bindtap="playMusic" />
-    <van-icon name="bars" class="player-icon" color="#23d59c" size="30px" />  
+    <van-icon name="bars" class="player-icon" bindtap="openListPoupu" color="#23d59c" size="30px" />  
   </view>
 </view>
+<van-popup show="{{ isPopupShow }}" bind:close="onClose">内容</van-popup>

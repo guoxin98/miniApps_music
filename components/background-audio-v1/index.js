@@ -2,7 +2,7 @@
  * @Author: guoxin
  * @Date: 2023-03-30 16:30:37
  * @LastEditors: guoxin
- * @LastEditTime: 2023-04-01 23:31:09
+ * @LastEditTime: 2023-04-04 18:09:50
  * @Description: 播放音乐底部状态栏
  */
 // components/background-audio-v1/index.js
@@ -20,9 +20,10 @@ Component({
   data: {
     playing: app.globalData.isPlaying,
     songUrl:null,
-    songInfo:app.globalData.playingSongInfo,
+    songInfo:null,
     musicStatus:true,
     backgroundAudio:null, //音频上下文
+    isPopupShow:false, //展示列表播放弹出层
   },
   created(){
     const backgroundAudio = app.globalData.backgroundAudioContext
@@ -31,10 +32,10 @@ Component({
       backgroundAudio:backgroundAudio
     })
     backgroundAudio.onPlay(()=>{
-      this.playMusic()
+      this.changePlayingStatus(true)
     })
     backgroundAudio.onPause(()=>{
-      this.pauseMusic()
+      this.changePlayingStatus(false)
     })
     backgroundAudio.onNext(() => {
       // 如果当前歌曲不是列表中的最后一首，则自动切换到下一首歌曲并开始播放
@@ -74,16 +75,11 @@ Component({
         this.pauseMusic()
       }
     },
-    // setBackgroundMusic(){
-    //   // 设置音乐内容并初始化播放
-    //   this.data.backgroundAudio.src = this.data.songInfo.src
-    //   this.data.backgroundAudio.title=this.data.songInfo.title 
-    //   if(app.globalData.isPlaying){
-    //     this.playMusic()
-    //   }else{
-    //     this.pauseMusic()
-    //   }
-    // },
+    openListPoupu(){
+      this.setData({
+        isPopupShow:true
+      })
+    },  
     playMusic() {
       this.data.backgroundAudio.play()
       this.changePlayingStatus(true)
@@ -96,7 +92,7 @@ Component({
       this.setData({
         playing:isPlaying
       })
-      app.globalData.isPlaying = isPlaying
+      app.globalData.isPlaying=isPlaying
       // 父组件元素变化
       this.triggerEvent('changeSongStatus',!isPlaying)
     }

@@ -115,7 +115,10 @@ Page({
           name,
           artists,
           sq,
-          isPlaying:false
+          isPlaying:app.globalData.playingSongInfo?
+            app.globalData.playingSongInfo.id===id?
+            true:false 
+            :false
         }
       })
       // 播放列表的id
@@ -124,9 +127,6 @@ Page({
         listInfo:res.playlist,
         tracks:tracks
       })
-      if(this.data.isRefreshTracks){
-        this.changeTrackStatus(false,app.globalData.playingSongInfo)
-      }
     })
   },
   async getSongUrl(){
