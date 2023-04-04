@@ -3,11 +3,11 @@
   white-space: nowrap;
   display:flex;
   align-items: center;
-  box-sizing: border-box;
   width: 100%;
 }
 .overflow-ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 65vw;
 }

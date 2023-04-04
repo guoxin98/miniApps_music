@@ -107,27 +107,23 @@ Page({
   onShow(options) {
     const songInfo = app.globalData.playingSongInfo
     const isPlaying = app.globalData.isPlaying
-    const backgroundAudio =  this.selectComponent('#bgAudio')
     // 有songInfo才显示底部音乐播放栏
     if(songInfo){
       this.setData({
         isShow:true
       })
+      
+      const backgroundAudio =  this.selectComponent('#bgAudio')
+      backgroundAudio.changePlayingStatus(isPlaying)
       // 如果存在全局属性
       // 判断该属性的值是否和初始值一致
       if(this.data.compareSongInfo&&this.data.compareSongInfo.id!==songInfo.id){
-        // 歌曲不一致，调用子组件，重新获取歌曲
-          this.setData({
-            compareSongInfo:songInfo,
-            isShow:true
-          })
-          backgroundAudio.initData()
-      }else if(this.data.compareSongInfo&&this.data.compareSongInfo.id===songInfo.id){
-      }else{
-        this.setData({
-          compareSongInfo:songInfo
-        })
+        backgroundAudio.initData()
       }
+      this.setData({
+        // 重新赋值
+        compareSongInfo:songInfo
+      })
     }
   },
 

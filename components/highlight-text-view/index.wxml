@@ -1,6 +1,8 @@
 <!--components/hightlight-text-view/index.wxml-->
-<view class="hightlight-text">
-  <view wx:for="{{textArr}}" class="overflow-ellipsis" wx:key="index" style="color:{{item === keywords ? hightLightColor: normalColor }}">
-    {{item}}
+<view class="overflow-ellipsis">
+  <view class="hightlight-text">
+    <view wx:for="{{textArr}}" wx:key="index" style="color:{{item === keywords ? hightLightColor: normalColor }}">
+      {{item}}
+    </view>
   </view>
 </view>

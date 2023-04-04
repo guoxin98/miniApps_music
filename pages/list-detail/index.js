@@ -14,7 +14,6 @@ Page({
     musicStatus:true,
     songInfo:null,
     isShow:false,
-    isRefreshTracks:false,
     isGetSongList:false, //是否已经获取过音乐列表
   },
   /**
@@ -46,7 +45,7 @@ Page({
       return item.id ===info.id
     });
     this.setData({
-      songInfo:songInfo
+      songInfo:info
     })
     app.globalData.isPlaying = true
     if(app.globalData.playingSongInfo){
@@ -54,7 +53,8 @@ Page({
         // 点击播放的歌曲和全局变量中的歌曲不一致，重新赋值
         app.globalData.playingSongInfo=songInfo
         this.setData({
-          isShow:true
+          isShow:true,
+          songInfo
         })
         const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
         backgroundAudio.initData()
@@ -65,7 +65,8 @@ Page({
     }else{
       app.globalData.playingSongInfo=songInfo
       this.setData({
-        isShow:true
+        isShow:true,
+        songInfo
       })
       const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
       backgroundAudio.playMusic()
@@ -81,15 +82,16 @@ Page({
     backgroundAudio.pauseMusic()
   },
   // 修改tracks的方法
-  changeTrackStatus(playing,info=this.data.songInfo){
+  changeTrackStatus(playing,info=app.globalData.playingSongInfo){
     const newTracks = this.data.tracks.map(tracks=>{
       if(tracks.id===info.id){
-        tracks.isPlaying=!playing
+        tracks.isPlaying=playing
       }else{
         tracks.isPlaying=false
       }
       return tracks
     })
+    console.log('change')
     this.setData({
       tracks:newTracks
     })
@@ -99,8 +101,8 @@ Page({
   changePlayingSong(e){
     this.changeTrackStatus(e.detail)
   },
-  getPlayListDetail(id){
-    getPlayListDetail(id).then((res)=>{
+  getPlayListDetail(listId){
+    getPlayListDetail(listId).then((res)=>{
       const ids = []
       const tracks = res.playlist.tracks.map(({id,al,name,ar,sq},index)=>{
         // 专辑名称、歌曲名称、作者数组
@@ -117,7 +119,7 @@ Page({
           sq,
           isPlaying:app.globalData.playingSongInfo?
             app.globalData.playingSongInfo.id===id?
-            true:false 
+            app.globalData.isPlaying:false
             :false
         }
       })
@@ -163,13 +165,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    if(app.globalData.playingSongInfo){
-      if(app.globalData.isPlaying){
-        this.setData({
-          isRefreshTracks:true
-        })
-      }
-    }
   },
   /**
    * 生命周期函数--监听页面隐藏

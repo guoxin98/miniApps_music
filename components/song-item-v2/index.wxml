@@ -5,7 +5,7 @@
   </view>
   <view class="song-info">
     <view class="hight-light" wx:if="{{isShowHighLight}}">
-      <hightlight-text-view class="overflow-ellipsis" text="{{songInfo.name}}" keywords="{{keywords}}"></hightlight-text-view>
+      <hightlight-text-view class="" text="{{songInfo.name}}" keywords="{{keywords}}"></hightlight-text-view>
     </view>
     <view class="song-name overflow-ellipsis" wx:else>
         {{songInfo.name}}
@@ -15,9 +15,9 @@
         <image class="sq-icon" src="../../assets/images/icons/sq_icon.png" v-if="{{songInfo.sq}}">
         </image>
       </view>
-      <view wx:if="{{isShowHighLight}}"  class="hight-light overflow-ellipsis">
+      <view wx:if="{{isShowHighLight}}"  class="hight-light">
         <!-- <text wx:if="{{isShowHighLight}}"> -->
-          <hightlight-text-view class="descri overflow-ellipsis" highLightColor="{{highLightColor}}" normalColor="{{normalColor}}" text="{{songInfo.artists}}" keywords="{{keywords}}"></hightlight-text-view>
+          <hightlight-text-view class="descri" highLightColor="{{highLightColor}}" normalColor="{{normalColor}}" text="{{songInfo.artists}}" keywords="{{keywords}}"></hightlight-text-view>
         <!-- </text> -->
       </view>
       <view wx:else class="descri overflow-ellipsis" >
