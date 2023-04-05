@@ -105,21 +105,33 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow(options) {
+    this.setData({
+      isShow:false
+    })
     const songInfo = app.globalData.playingSongInfo
     const isPlaying = app.globalData.isPlaying
     // 有songInfo才显示底部音乐播放栏
     if(songInfo){
-      this.setData({
-        isShow:true
-      })
-      
-      const backgroundAudio =  this.selectComponent('#bgAudio')
-      backgroundAudio.changePlayingStatus(isPlaying)
       // 如果存在全局属性
       // 判断该属性的值是否和初始值一致
       if(this.data.compareSongInfo&&this.data.compareSongInfo.id!==songInfo.id){
-        backgroundAudio.initData()
+        // 设置背景音乐
+        const backgroundAudio = app.globalData.backgroundAudioContext
+        backgroundAudio.src = songInfo.src
+        backgroundAudio.title=songInfo.title 
+        backgroundAudio.coverImgUrl= songInfo.coverImgUrl
       }
+      // 展示组件
+      this.setData({
+        isShow:true
+      })
+      const backgroundAudio =  this.selectComponent('#bgAudio')
+      if(isPlaying){
+        backgroundAudio.playMusic()
+      }else{
+        backgroundAudio.pauseMusic()
+      }
+      backgroundAudio.changePlayingStatus(isPlaying)
       this.setData({
         // 重新赋值
         compareSongInfo:songInfo

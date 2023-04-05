@@ -40,12 +40,13 @@ Page({
       await this.getSongUrl()
     } 
     const info =e.detail
+    // 获取完整的songInfo
     const songInfo = app.globalData.songInfos.find((item,index)=>{
       app.globalData.currentIndex  = index
       return item.id ===info.id
     });
     this.setData({
-      songInfo:info
+      songInfo:songInfo
     })
     app.globalData.isPlaying = true
     if(app.globalData.playingSongInfo){
@@ -91,7 +92,6 @@ Page({
       }
       return tracks
     })
-    console.log('change')
     this.setData({
       tracks:newTracks
     })

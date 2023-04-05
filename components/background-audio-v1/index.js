@@ -2,11 +2,10 @@
  * @Author: guoxin
  * @Date: 2023-03-30 16:30:37
  * @LastEditors: guoxin
- * @LastEditTime: 2023-04-04 23:11:27
+ * @LastEditTime: 2023-04-05 16:48:29
  * @Description: 播放音乐底部状态栏
  */
 // components/background-audio-v1/index.js
-import { getSongUrl } from '../../api/api-music'
 const app = getApp();
 Component({
   /**
@@ -18,7 +17,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    num:1,
     playing: app.globalData.isPlaying,
     songUrl:null,
     songInfo:null,
@@ -48,16 +46,17 @@ Component({
       }
     })
     backgroundAudio.onPrev(() => {
-      this.setData({
-        playing:true
-      })
       app.globalData.isPlaying=true
-      // 如果当前歌曲不是列表中的最后一首，则自动切换到下一首歌曲并开始播放
+      // 如果当前歌曲不是列表中的第一首，则自动切换到上一首歌曲并开始播放
       if (app.globalData.currentIndex>0) {
         app.globalData.currentIndex=app.globalData.currentIndex-1
         app.globalData.playingSongInfo=musicList[app.globalData.currentIndex]
         this.initData()
       }
+    })
+    backgroundAudio.onStop(()=>{
+      console.log('onStop')
+      this.changePlayingStatus(false)
     })
   },
   attached(){
@@ -76,12 +75,13 @@ Component({
       this.data.backgroundAudio.title=this.data.songInfo.title 
       this.data.backgroundAudio.coverImgUrl= this.data.songInfo.coverImgUrl
       if(app.globalData.isPlaying){
-        console.log('播放音乐')
         this.data.backgroundAudio.play()
       }else{
-        console.log('暂停音乐')
         this.data.backgroundAudio.pause()
       }
+      this.setData({
+        playing:app.globalData.isPlaying
+      })
     },
     openListPoupu(){
       this.setData({

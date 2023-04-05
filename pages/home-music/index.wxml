@@ -34,5 +34,5 @@
       </view>
     </block>
   </view>
-  <background-audio-v1 wx:if="{{isShow}}" id="bgAudio"></background-audio-v1>
+  <background-audio-v1 wx:if="{{isShow}}" id="bgAudio" bind:changeSongStatus=""></background-audio-v1>
 </view>

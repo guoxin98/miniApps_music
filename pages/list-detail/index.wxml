@@ -15,5 +15,5 @@
       <song-item-v2 songInfo="{{item}}" normalColor="" hightLightColor="" bind:playSong="playSong" bind:pauseSong="pauseSong"></song-item-v2>
     </view>
   </view>
-  <background-audio-v1 isChangeSong="{{isChangeSong}}" bind:changeSongStatus="changePlayingSong" wx:if="{{isShow}}"  id="bgAudio" ></background-audio-v1>
+  <background-audio-v1  bind:changeSongStatus="changePlayingSong" wx:if="{{isShow}}"  id="bgAudio" ></background-audio-v1>
 </view>
