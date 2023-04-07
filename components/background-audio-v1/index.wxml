@@ -17,4 +17,17 @@
     <van-icon name="bars" class="player-icon" bindtap="openListPoupu" color="#23d59c" size="30px" />  
   </view>
 </view>
-<van-popup show="{{ isPopupShow }}" bind:close="onClose">内容</van-popup>
+<van-popup show="{{ isPopupShow }}" closeable bind:close="onClose" custom-style="padding:20rpx" safe-area-inset-bottom position="bottom">
+  <view>
+    <view class="play-mode" bindtap="changePlayMode">
+      <image src="../../assets/images/player/{{playModeIcon}}.png" class="player-icon">
+      </image>
+      {{playMode}}
+    </view>
+    <view class="song-list">
+      <view class="song-item {{item.id===songInfo.id?'high-light':''}}" data-songinfo="{{item}}" bindtap="handleSongSwitch" wx:for="{{songInfos}}" wx:key="index">
+        {{item.title}}
+      </view>
+    </view>
+  </view>
+</van-popup>

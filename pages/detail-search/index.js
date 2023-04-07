@@ -2,11 +2,14 @@
 import { getHotSearchList, getSearchResult,getSearchSuggest } from '../../api/api-music'
 import storage from '../../utils/storage'
 import {formatSongAr } from '../../utils/util'
+const app =  getApp();
+
 const SEARCH_HISTORY = 'searchHistory'
 const SHOW_DEFAULT_PAGE = 'showDefaultPage'
 const SHOW_SUGGESTION_PAGE = 'showSuggestionPage'
 const SHOW_SERACH_RESULT_PAGE = 'showSearchResultPage'
 const SHOW_LOADING_PAGE = 'showLoadingPage'
+
 Page({
 
   /**
@@ -137,10 +140,14 @@ Page({
     })
   },
   // 点击播放按钮跳转到音乐播放器页面
-  playSong(){
-  wx.navigateTo({
-    url: '/pages/music-player/index'
-  });
+  playSong(e){
+    wx.navigateTo({
+      url: `/pages/music-player/index?id=${e.detail.id}`,
+      success: function(res) {
+        // 通过eventChannel向被打开页面传送数据
+        res.eventChannel.emit('acceptSongInfo', { data: e.detail })
+      }
+    });
   },
   // 点击加载更多
   handleShowMoreResults(){

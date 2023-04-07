@@ -19,6 +19,7 @@
   "homepage": "https://github.com/guoxin98/miniApps_music#readme",
   "dependencies": {
     "@vant/weapp": "^1.10.14",
-    "hy-event-store": "^1.2.1"
+    "hy-event-store": "^1.2.1",
+    "lyric-parser": "^1.0.1"
   }
 }

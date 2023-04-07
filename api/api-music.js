@@ -2,7 +2,7 @@
  * @Author: guoxin
  * @Date: 2023-03-01 19:45:57
  * @LastEditors: guoxin
- * @LastEditTime: 2023-04-03 12:52:42
+ * @LastEditTime: 2023-04-07 11:07:02
  * @Description: 请填写简介
  */
 import hyRequest from "../utils/request";
@@ -37,7 +37,7 @@ export const getSongUrl = (ids)=>{
   if(ids instanceof Array && ids.length>1){
     id =  ids.map(item=>item).join(',')
   }else{
-    id=ids[0]
+    id=ids
   }
   return hyRequest.get('song/url',{id})
 }
@@ -52,4 +52,12 @@ export const getSearchSuggest = (keywords)=>{
 // 搜索匹配结果
 export const getSearchResult = (keywords,limit=30,offset=0,type=1)=>{
   return hyRequest.get('search',{keywords,limit,offset,type})
+}
+// 获取歌词
+export const getSongLyric = (id)=>{
+  return hyRequest.get('lyric',{id})
+}
+// 获取歌曲详情
+export const getSongDetail = (ids)=>{
+  return hyRequest.get('song/detail',{ids})
 }

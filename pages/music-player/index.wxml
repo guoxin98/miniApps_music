@@ -1,4 +1,41 @@
+
 <!--pages/music-player/index.wxml-->
 <view class="music-player">
-  音乐播放
+  <view class="music-info">
+    <view class="music-name">
+      {{musicInfo.name}}
+    </view>
+    <view class="music-author">
+      {{musicInfo.author}}
+    </view>
+    <view class="music-pic">
+      <image src="{{musicInfo.picUrl}}">
+      </image>
+      <van-icon name="play-circle" wx:if="{{!playing&&songUrl}}" style="position:absolute" size="40px" color="#fff" bindtap="handleChangePlayingStatus" />
+      <van-icon name="pause-circle" wx:if="{{playing&&songUrl}}" style="position:absolute" size="40px" color="#fff" bindtap="handleChangePlayingStatus" />
+    </view>
+    <scroll-view  enable-flex enable-passive class="lyric" scroll-y scroll-into-view="{{scrollToText}}">
+      <view wx:for="{{lines}}" id="{{'scroll'+index}}" wx:key="index" class="lines {{item.isHightLightText?'high-light':''}}">
+        {{item.txt}}
+      </view>
+    </scroll-view>
+  </view>
+  <view class="share">
+    <button open-type="share" class="share-button">分享给微信好友</button>
+  </view>
+  <van-dialog
+    use-slot
+    title="提示"
+    show="{{ isDialogShow }}"
+    bind:close="onClose"
+    custom-class="my-custom-class"
+    showConfirmButton="{{false}}"
+  >
+  <view class="content">
+    <view class="txt">
+      该歌曲请前往云音乐APP播放
+    </view>
+    <button class="confirm-btn" bindtap="closeDialog">我知道了</button>
+  </view>
+  </van-dialog>
 </view>

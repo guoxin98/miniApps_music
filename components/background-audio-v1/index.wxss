@@ -61,3 +61,27 @@
   animation: scroll 4s linear 1;
   animation-delay: 1s;
 }
+.play-mode{
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid grey;
+  padding-bottom: 20rpx;
+}
+.play-mode image{
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 40rpx;
+}
+.song-list{
+  padding: 20rpx;
+  max-height:64vh;
+  overflow-y: auto;
+}
+.song-list .song-item{
+  line-height: 1;
+  margin-bottom: 20rpx;
+  font-size: 30rpx;
+}
+.high-light{
+  color: aquamarine;
+}

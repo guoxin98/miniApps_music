@@ -14,7 +14,6 @@ Page({
     musicStatus:true,
     songInfo:null,
     isShow:false,
-    isGetSongList:false, //是否已经获取过音乐列表
   },
   /**
    * 生命周期函数--监听页面加载
@@ -35,10 +34,6 @@ Page({
    * @return {void}
    */
   async playSong(e){
-    if(!this.data.isGetSongList){
-      // 获取音乐列表
-      await this.getSongUrl()
-    } 
     const info =e.detail
     // 获取完整的songInfo
     const songInfo = app.globalData.songInfos.find((item,index)=>{
@@ -129,6 +124,7 @@ Page({
         listInfo:res.playlist,
         tracks:tracks
       })
+      this.getSongUrl()
     })
   },
   async getSongUrl(){
@@ -153,6 +149,9 @@ Page({
         coverImgUrl:picUrl,
         title:name
       }
+    })
+    this.setData({
+      isShow:false
     })
   },
   /**

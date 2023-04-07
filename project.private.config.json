@@ -35,6 +35,20 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/music-player/index",
+          "query": "id=2030766928",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/music-player/index",
+          "query": "id=2030766928",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

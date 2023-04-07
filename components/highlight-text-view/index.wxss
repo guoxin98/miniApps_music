@@ -1,13 +1,13 @@
 /* components/hightlight-text-view/index.wxss */
 .hightlight-text{
-  white-space: nowrap;
-  display:flex;
-  align-items: center;
-  width: 100%;
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .overflow-ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 65vw;
+  max-width: 70vw;
 }
