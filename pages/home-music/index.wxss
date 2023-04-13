@@ -1,6 +1,6 @@
 /* pages/home-music/index.wxss */
 .home-music{
-  padding: 0 20rpx 10vh 20rpx;
+  padding: 0 20rpx 20rpx 20rpx;
 }
 .van-search__content{
   background-color: #fff !important;
@@ -11,6 +11,7 @@
   object-fit: cover;
 }
 .swiper{
+  height: 300rpx;
   border-radius: 4px;
   overflow: hidden;
   transform: translateY(0);
