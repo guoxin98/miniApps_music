@@ -9,7 +9,7 @@ Page({
    */
   data: {
     bannerList:[], //轮播图数组
-    // height:0, //轮播图高度
+    height:0, //轮播图高度
     timeId:null, //节流
     recommendList:[], //推荐歌曲
     topList:[], //巅峰榜单
@@ -110,27 +110,19 @@ Page({
     })
     const songInfo = app.globalData.playingSongInfo
     const isPlaying = app.globalData.isPlaying
+    const backgroundAudio = app.globalData.backgroundAudioContext
     // 有songInfo才显示底部音乐播放栏
     if(songInfo){
-      // 如果存在全局属性
-      // 判断该属性的值是否和初始值一致
-      if(this.data.compareSongInfo&&this.data.compareSongInfo.id!==songInfo.id){
-        // 设置背景音乐
-        const backgroundAudio = app.globalData.backgroundAudioContext
-        backgroundAudio.src = songInfo.src
-        backgroundAudio.title=songInfo.title 
-        backgroundAudio.coverImgUrl= songInfo.coverImgUrl
         if(isPlaying){
           backgroundAudio.play()
         }else{
           backgroundAudio.pause()
         }
-      }
-      // 展示组件
       this.setData({
-        isShow:true,
-        compareSongInfo:songInfo
+        isShow:true
       })
+      const backgroundAudioComponent=  this.selectComponent('.bgAudio')
+      backgroundAudioComponent.initData()
     }
   },
 
