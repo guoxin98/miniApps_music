@@ -2,7 +2,7 @@
  * @Author: guoxin
  * @Date: 2023-03-30 16:30:37
  * @LastEditors: guoxin
- * @LastEditTime: 2023-04-07 21:28:42
+ * @LastEditTime: 2023-04-13 09:46:40
  * @Description: 播放音乐底部状态栏
  */
 // components/background-audio-v1/index.js
@@ -38,6 +38,7 @@ Component({
       backgroundAudio:backgroundAudio
     })
     backgroundAudio.onPlay(()=>{
+      console.log('play')
       this.changePlayingStatus(true)
     })
     backgroundAudio.onPause(()=>{
@@ -62,12 +63,14 @@ Component({
       }
     })
     backgroundAudio.onStop(()=>{
-      console.log('onStop')
       this.changePlayingStatus(false)
     })
     backgroundAudio.onEnded(()=>{
       // 三种播放方式
-      app.globalData.isPlaying=true
+      if(app.globalData.currentIndex===musicList.length-1){
+        backgroundAudio.stop()
+        return
+      }
       let index 
       if(this.data.playModeIcon==='play_order'){
         // 顺序播放
@@ -106,13 +109,15 @@ Component({
         songInfo:app.globalData.playingSongInfo
       })
       // 设置音乐列表播放内容
-      this.data.backgroundAudio.src = this.data.songInfo.src?this.data.songInfo.src:null
-      this.data.backgroundAudio.title=this.data.songInfo.title 
-      this.data.backgroundAudio.coverImgUrl= this.data.songInfo.coverImgUrl
-      if(app.globalData.isPlaying){
-        this.data.backgroundAudio.play()
-      }else{
-        this.data.backgroundAudio.pause()
+      if(this.data.songInfo.src){
+        this.data.backgroundAudio.src = this.data.songInfo.src
+        this.data.backgroundAudio.title=this.data.songInfo.title 
+        this.data.backgroundAudio.coverImgUrl= this.data.songInfo.coverImgUrl
+        if(app.globalData.isPlaying){
+          this.data.backgroundAudio.play()
+        }else{
+          this.data.backgroundAudio.pause()
+        }
       }
       this.setData({
         playing:app.globalData.isPlaying

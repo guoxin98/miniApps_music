@@ -77,20 +77,27 @@ Page({
   async getSearchResult(keywords=this.data.searchValue){
     // 四个参数：关键词、数量、偏移量、类型1：单曲
     const res = await getSearchResult(keywords,30,this.data.offset,1)
-    let songList = res.result.songs.map(({album,artists,name,id})=>{
-      const artistsName = formatSongAr(artists)
-      return {
-        artists:artistsName,
-        albumName:album.name,
-        name,
-        id
-      }
-    })
-    songList=this.data.songList.length?[...this.data.songList,...songList]:[...songList]
-    this.setData({
-      songList:songList,
-      hasMore:res.result.hasMore,
-    })
+    if(Object.keys(res.result).length){
+      let songList = res.result.songs.map(({album,artists,name,id})=>{
+        const artistsName = formatSongAr(artists)
+        return {
+          artists:artistsName,
+          albumName:album.name,
+          name,
+          id
+        }
+      })
+      songList=this.data.songList.length?[...this.data.songList,...songList]:[...songList]
+      this.setData({
+        songList:songList,
+        hasMore:res.result.hasMore,
+      })
+    }else{
+      this.setData({
+        songList:[],
+        hasMore:false
+      })
+    }
   },
   async getSearchSuggest(e){
     // 触发搜索事件

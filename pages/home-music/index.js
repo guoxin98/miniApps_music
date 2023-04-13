@@ -120,20 +120,15 @@ Page({
         backgroundAudio.src = songInfo.src
         backgroundAudio.title=songInfo.title 
         backgroundAudio.coverImgUrl= songInfo.coverImgUrl
+        if(isPlaying){
+          backgroundAudio.play()
+        }else{
+          backgroundAudio.pause()
+        }
       }
       // 展示组件
       this.setData({
-        isShow:true
-      })
-      const backgroundAudio =  this.selectComponent('#bgAudio')
-      if(isPlaying){
-        backgroundAudio.playMusic()
-      }else{
-        backgroundAudio.pauseMusic()
-      }
-      backgroundAudio.changePlayingStatus(isPlaying)
-      this.setData({
-        // 重新赋值
+        isShow:true,
         compareSongInfo:songInfo
       })
     }

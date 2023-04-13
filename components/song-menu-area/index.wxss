@@ -37,7 +37,7 @@
   color:#fff;
   position: absolute;
   text-align: right;
-  z-index: 999;
+  z-index: 2;
   font-size: 16rpx;
   right: 15rpx;
   top: 166rpx;

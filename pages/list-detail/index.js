@@ -49,8 +49,7 @@ Page({
         // 点击播放的歌曲和全局变量中的歌曲不一致，重新赋值
         app.globalData.playingSongInfo=songInfo
         this.setData({
-          isShow:true,
-          songInfo
+          isShow:true
         })
         const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
         backgroundAudio.initData()
@@ -61,8 +60,7 @@ Page({
     }else{
       app.globalData.playingSongInfo=songInfo
       this.setData({
-        isShow:true,
-        songInfo
+        isShow:true
       })
       const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
       backgroundAudio.playMusic()
@@ -149,9 +147,6 @@ Page({
         coverImgUrl:picUrl,
         title:name
       }
-    })
-    this.setData({
-      isShow:false
     })
   },
   /**

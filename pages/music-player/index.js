@@ -66,6 +66,7 @@ Page({
   },
   initBackgroundAudio(songInfo){
     app.globalData.playingSongInfo = songInfo
+    app.globalData.songInfos = [songInfo]
     const backgroundAudio = app.globalData.backgroundAudioContext
     if(songInfo.src){
       backgroundAudio.src = songInfo.src
@@ -150,6 +151,13 @@ Page({
       // (backgroundAudio.currentTime).toFixed(2)*1000
       this.lyricChange(currentTime)
     });
+    backgroundAudio.onEnded(()=>{
+      // 三种播放方式
+      app.globalData.isPlaying=false
+      this.setData({
+        playing:false
+      })
+    })
   },
 
   /**

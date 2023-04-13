@@ -67,7 +67,7 @@
   border-bottom: 1px solid grey;
   padding-bottom: 20rpx;
 }
-.play-mode image{
+.play-mode .image{
   width: 60rpx;
   height: 60rpx;
   margin-right: 40rpx;

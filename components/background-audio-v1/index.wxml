@@ -20,7 +20,7 @@
 <van-popup show="{{ isPopupShow }}" closeable bind:close="onClose" custom-style="padding:20rpx" safe-area-inset-bottom position="bottom">
   <view>
     <view class="play-mode" bindtap="changePlayMode">
-      <image src="../../assets/images/player/{{playModeIcon}}.png" class="player-icon">
+      <image src="../../assets/images/player/{{playModeIcon}}.png" class="player-icon .image">
       </image>
       {{playMode}}
     </view>
