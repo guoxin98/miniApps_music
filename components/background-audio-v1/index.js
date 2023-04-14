@@ -2,7 +2,7 @@
  * @Author: guoxin
  * @Date: 2023-03-30 16:30:37
  * @LastEditors: guoxin
- * @LastEditTime: 2023-04-07 21:28:42
+ * @LastEditTime: 2023-04-13 10:43:12
  * @Description: 播放音乐底部状态栏
  */
 // components/background-audio-v1/index.js
@@ -30,6 +30,7 @@ Component({
     playModeIcon:'play_order',
     backgroundAudio:null, //音频上下文
     isPopupShow:false, //展示列表播放弹出层
+    isRestart:false
   },
   created(){
     const backgroundAudio = app.globalData.backgroundAudioContext
@@ -44,30 +45,37 @@ Component({
       this.changePlayingStatus(false)
     })
     backgroundAudio.onNext(() => {
-      app.globalData.isPlaying=true
+      app.globalData.isPlaying=false
       // 如果当前歌曲不是列表中的最后一首，则自动切换到下一首歌曲并开始播放
       if (app.globalData.currentIndex < musicList.length - 1) {
+        app.globalData.isPlaying=true
         app.globalData.currentIndex=app.globalData.currentIndex+1
         app.globalData.playingSongInfo=musicList[app.globalData.currentIndex]
         this.initData()
       }
     })
     backgroundAudio.onPrev(() => {
-      app.globalData.isPlaying=true
+      app.globalData.isPlaying=false
       // 如果当前歌曲不是列表中的第一首，则自动切换到上一首歌曲并开始播放
       if (app.globalData.currentIndex>0) {
+        app.globalData.isPlaying=true
         app.globalData.currentIndex=app.globalData.currentIndex-1
         app.globalData.playingSongInfo=musicList[app.globalData.currentIndex]
         this.initData()
       }
     })
     backgroundAudio.onStop(()=>{
-      console.log('onStop')
       this.changePlayingStatus(false)
     })
     backgroundAudio.onEnded(()=>{
       // 三种播放方式
-      app.globalData.isPlaying=true
+      if(app.globalData.currentIndex===musicList.length-1){
+        this.setData({
+          isRestart:true
+        })
+        this.changePlayingStatus(false)
+        return
+      }
       let index 
       if(this.data.playModeIcon==='play_order'){
         // 顺序播放
@@ -95,6 +103,9 @@ Component({
       const songInfo = e.currentTarget.dataset.songinfo
       app.globalData.playingSongInfo = songInfo
       this.initData()
+      this.data.backgroundAudio.src = this.data.songInfo.src
+      this.data.backgroundAudio.title=this.data.songInfo.title 
+      this.data.backgroundAudio.coverImgUrl= this.data.songInfo.coverImgUrl
     },
     onClose(){
       this.setData({
@@ -103,18 +114,7 @@ Component({
     },
     initData(){
       this.setData({
-        songInfo:app.globalData.playingSongInfo
-      })
-      // 设置音乐列表播放内容
-      this.data.backgroundAudio.src = this.data.songInfo.src?this.data.songInfo.src:null
-      this.data.backgroundAudio.title=this.data.songInfo.title 
-      this.data.backgroundAudio.coverImgUrl= this.data.songInfo.coverImgUrl
-      if(app.globalData.isPlaying){
-        this.data.backgroundAudio.play()
-      }else{
-        this.data.backgroundAudio.pause()
-      }
-      this.setData({
+        songInfo:app.globalData.playingSongInfo,
         playing:app.globalData.isPlaying
       })
     },
@@ -125,6 +125,12 @@ Component({
       })
     },  
     playMusic() {
+      // 添加从头播放事件
+      if(this.data.isRestart){
+        this.data.backgroundAudio.src = this.data.songInfo.src
+        this.data.backgroundAudio.title=this.data.songInfo.title 
+        this.data.backgroundAudio.coverImgUrl= this.data.songInfo.coverImgUrl
+      }
       this.data.backgroundAudio.play()
     },
     pauseMusic() {

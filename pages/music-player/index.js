@@ -66,6 +66,8 @@ Page({
   },
   initBackgroundAudio(songInfo){
     app.globalData.playingSongInfo = songInfo
+    app.globalData.songInfos = [songInfo]
+    app.globalData.currentIndex=0
     const backgroundAudio = app.globalData.backgroundAudioContext
     if(songInfo.src){
       backgroundAudio.src = songInfo.src
@@ -150,6 +152,13 @@ Page({
       // (backgroundAudio.currentTime).toFixed(2)*1000
       this.lyricChange(currentTime)
     });
+    backgroundAudio.onEnded(()=>{
+      app.globalData.isPlaying=false
+      app.globalData.playingSongInfo=null
+      this.setData({
+        playing:false
+      })
+    })
   },
 
   /**

@@ -14,6 +14,7 @@ Page({
     musicStatus:true,
     songInfo:null,
     isShow:false,
+    isGetSongUrlFlag:false
   },
   /**
    * 生命周期函数--监听页面加载
@@ -34,6 +35,9 @@ Page({
    * @return {void}
    */
   async playSong(e){
+    if(!this.data.isGetSongUrlFlag){
+      await this.getSongUrl()
+    }
     const info =e.detail
     // 获取完整的songInfo
     const songInfo = app.globalData.songInfos.find((item,index)=>{
@@ -43,30 +47,21 @@ Page({
     this.setData({
       songInfo:songInfo
     })
+    // 设置背景音乐数据
+    const backgroundAudio= app.globalData.backgroundAudioContext
+    backgroundAudio.src = songInfo.src
+    backgroundAudio.title=songInfo.title 
+    backgroundAudio.coverImgUrl= songInfo.coverImgUrl
+    backgroundAudio.play()
+    app.globalData.playingSongInfo=songInfo
+    // 显示组件
+    this.setData({
+      isShow:true
+    })
+    // 初始化组件数据
+    const backgroundAudioComponent=  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
+    backgroundAudioComponent.initData()
     app.globalData.isPlaying = true
-    if(app.globalData.playingSongInfo){
-      if(this.data.songInfo.id!==app.globalData.playingSongInfo.id){
-        // 点击播放的歌曲和全局变量中的歌曲不一致，重新赋值
-        app.globalData.playingSongInfo=songInfo
-        this.setData({
-          isShow:true,
-          songInfo
-        })
-        const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
-        backgroundAudio.initData()
-      }else{
-        const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
-        backgroundAudio.playMusic()
-      }
-    }else{
-      app.globalData.playingSongInfo=songInfo
-      this.setData({
-        isShow:true,
-        songInfo
-      })
-      const backgroundAudio =  this.selectComponent(AUDIO_COMPONENT_SELECTOR)
-      backgroundAudio.playMusic()
-    }
   },
   /**
    * @description: 点击按钮暂停音乐事件
@@ -124,7 +119,6 @@ Page({
         listInfo:res.playlist,
         tracks:tracks
       })
-      this.getSongUrl()
     })
   },
   async getSongUrl(){
@@ -141,7 +135,7 @@ Page({
       }
       return acc;
     }, []);
-    // 筛选属性
+    // 筛选属性添加播放列表
     app.globalData.songInfos = siftArr.map(({id,url,name,picUrl})=>{
       return {
         id,
@@ -151,7 +145,7 @@ Page({
       }
     })
     this.setData({
-      isShow:false
+      isGetSongUrlFlag:true
     })
   },
   /**

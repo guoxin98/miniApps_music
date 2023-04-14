@@ -12,7 +12,7 @@
   <van-button icon="share-o" size="normal" open-type="share" color="rgba(255, 255, 255, 0.05)" block round>分享给微信好友</van-button>
   <view class="list-song">
     <view wx:for="{{tracks}}" wx:key="id" class="list-item" >
-      <song-item-v2 songInfo="{{item}}" normalColor="" hightLightColor="" bind:playSong="playSong" bind:pauseSong="pauseSong"></song-item-v2>
+      <song-item-v2 songInfo="{{item}}" normalColor="#4242bd"  hightLightColor="#507daf" bind:playSong="playSong" bind:pauseSong="pauseSong"></song-item-v2>
     </view>
   </view>
   <background-audio-v1  bind:changeSongStatus="changePlayingSong" wx:if="{{isShow}}"  id="bgAudio" ></background-audio-v1>
